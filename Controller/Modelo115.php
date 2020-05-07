@@ -22,6 +22,7 @@ use FacturaScripts\Core\Base\Controller;
 use FacturaScripts\Core\Base\DataBase\DataBaseWhere;
 use FacturaScripts\Dinamic\Model\Ejercicio;
 use FacturaScripts\Dinamic\Model\FacturaProveedor;
+use FacturaScripts\Dinamic\Model\Retencion;
 
 /**
  * Description of Modelo115
@@ -36,6 +37,12 @@ class Modelo115 extends Controller
      * @var string
      */
     public $codejercicio;
+
+    /**
+     *
+     * @var string
+     */
+    public $codretencion;
 
     /**
      *
@@ -103,8 +110,8 @@ class Modelo115 extends Controller
      */
     public function allExercises()
     {
-        $ejercicio = new Ejercicio();
-        return $ejercicio->all([], ['nombre' => 'DESC']);
+        $exercise = new Ejercicio();
+        return $exercise->all([], ['nombre' => 'DESC'], 0, 0);
     }
 
     /**
@@ -119,6 +126,16 @@ class Modelo115 extends Controller
             'T3' => 'third-trimester',
             'T4' => 'fourth-trimester'
         ];
+    }
+
+    /**
+     * 
+     * @return array
+     */
+    public function allRetentions()
+    {
+        $retention = new Retencion();
+        return $retention->all([], ['descripcion' => 'ASC'], 0, 0);
     }
 
     /**
@@ -184,6 +201,13 @@ class Modelo115 extends Controller
             new DataBaseWhere('idempresa', $this->idempresa),
             new DataBaseWhere('totalirpf', 0.0, '!=')
         ];
+
+        $this->codretencion = $this->request->request->get('codretencion', '');
+        $retention = new Retencion();
+        if (!empty($this->codretencion) && $retention->loadFromCode($this->codretencion)) {
+            $where[] = new DataBaseWhere('irpf', $retention->porcentaje);
+        }
+
         $order = ['fecha' => 'ASC', 'numero' => 'ASC'];
         $this->invoices = $invoiceModel->all($where, $order, 0, 0);
     }

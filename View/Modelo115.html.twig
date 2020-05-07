@@ -43,6 +43,21 @@
                         </select>
                     </div>
                 </div>
+                <div class="col-sm-3">
+                    <div class="form-group">
+                        {{ i18n.trans('retention') }}
+                        <select name="codretencion" class="form-control">
+                            <option value="">------</option>
+                            {% for ret in fsc.allRetentions() %}
+                                {% if ret.codretencion == fsc.codretencion %}
+                                    <option value="{{ ret.codretencion }}" selected="">{{ i18n.trans(ret.descripcion) }}</option>
+                                {% else %}
+                                    <option value="{{ ret.codretencion }}">{{ i18n.trans(ret.descripcion) }}</option>
+                                {% endif %}
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
                 <div class="col">
                     <div class="form-group">
                         <button type="submit" name="action" value="show" class="btn btn-primary">
@@ -63,31 +78,56 @@
                     <div class="col">
                         <div class="form-group">
                             {{ i18n.trans('number-recipients') }}
-                            <input type="number" value="{{ fsc.numrecipients }}" class="form-control" readonly="true" />
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">1</span>
+                                </div>
+                                <input type="number" value="{{ fsc.numrecipients }}" class="form-control text-right" readonly="true" />
+                            </div>
                         </div>
                     </div>
                     <div class="col">
                         <div class="form-group">
                             {{ i18n.trans('tax-base') }}
-                            <input type="number" value="{{ fsc.taxbase }}" class="form-control" readonly="true" />
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">2</span>
+                                </div>
+                                <input type="number" value="{{ fsc.taxbase }}" class="form-control text-right" readonly="true" />
+                            </div>
                         </div>
                     </div>
                     <div class="col">
                         <div class="form-group">
                             {{ i18n.trans('retentions') }}
-                            <input type="number" value="{{ fsc.retentions }}" class="form-control" readonly="true" />
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">3</span>
+                                </div>
+                                <input type="number" value="{{ fsc.retentions }}" class="form-control text-right" readonly="true" />
+                            </div>
                         </div>
                     </div>
                     <div class="col">
                         <div class="form-group">
                             {{ i18n.trans('to-deduct') }}
-                            <input type="number" name="todeduct" value="{{ fsc.todeduct }}" class="form-control" required="true" onchange="this.form.submit();" />
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">4</span>
+                                </div>
+                                <input type="number" name="todeduct" value="{{ fsc.todeduct }}" class="form-control text-right" required="true" onchange="this.form.submit();" />
+                            </div>
                         </div>
                     </div>
                     <div class="col">
                         <div class="form-group">
                             {{ i18n.trans('result') }}
-                            <input type="number" value="{{ fsc.result }}" class="form-control" readonly="true" />
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">5</span>
+                                </div>
+                                <input type="number" value="{{ fsc.result }}" class="form-control text-right" readonly="true" />
+                            </div>
                         </div>
                     </div>
                 </div>
