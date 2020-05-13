@@ -214,14 +214,14 @@ class Modelo115 extends Controller
 
     protected function loadResults()
     {
-        $suppliers = [];
+        $recipients = [];
         foreach ($this->invoices as $invoice) {
-            $suppliers[$invoice->codproveedor] = $invoice->codproveedor;
+            $recipients[$invoice->codproveedor] = $invoice->codproveedor;
             $this->taxbase += $invoice->neto;
             $this->retentions += $invoice->totalirpf;
         }
 
-        $this->numrecipients = \count($suppliers);
+        $this->numrecipients = \count($recipients);
         $this->todeduct = (float) $this->request->request->get('todeduct');
         $this->result = $this->retentions - $this->todeduct;
     }
