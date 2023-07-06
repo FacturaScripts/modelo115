@@ -163,11 +163,11 @@
                                             <a href="{{ item.url() }}">{{ item.codigo }}</a>
                                         </td>
                                         <td>{{ item.nombre | raw }}</td>
-                                        <td class="text-right">{{ fsc.toolBox().coins().format(item.neto) }}</td>
-                                        <td class="text-right">{{ fsc.toolBox().coins().format(item.totaliva) }}</td>
-                                        <td class="text-right">{{ fsc.toolBox().coins().format(item.totalrecargo) }}</td>
-                                        <td class="text-right">{{ fsc.toolBox().coins().format(item.totalirpf) }}</td>
-                                        <td class="text-right">{{ fsc.toolBox().coins().format(item.total) }}</td>
+                                        <td class="text-right">{{ money(item.neto) }}</td>
+                                        <td class="text-right">{{ money(item.totaliva) }}</td>
+                                        <td class="text-right">{{ money(item.totalrecargo) }}</td>
+                                        <td class="text-right">{{ money(item.totalirpf) }}</td>
+                                        <td class="text-right">{{ money(item.total) }}</td>
                                         <td class="text-right">{{ item.fecha }}</td>
                                     </tr>
                                 {% else %}
