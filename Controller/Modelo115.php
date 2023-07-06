@@ -1,7 +1,7 @@
 <?php
 /**
  * This file is part of Modelo115 plugin for FacturaScripts
- * Copyright (C) 2020 Carlos Garcia Gomez <carlos@facturascripts.com>
+ * Copyright (C) 2020-2023 Carlos Garcia Gomez <carlos@facturascripts.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as
@@ -16,10 +16,12 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
+
 namespace FacturaScripts\Plugins\Modelo115\Controller;
 
 use FacturaScripts\Core\Base\Controller;
 use FacturaScripts\Core\Base\DataBase\DataBaseWhere;
+use FacturaScripts\Core\DataSrc\Ejercicios;
 use FacturaScripts\Dinamic\Model\Ejercicio;
 use FacturaScripts\Dinamic\Model\FacturaProveedor;
 use FacturaScripts\Dinamic\Model\Retencion;
@@ -31,94 +33,62 @@ use FacturaScripts\Dinamic\Model\Retencion;
  */
 class Modelo115 extends Controller
 {
-
-    /**
-     *
-     * @var string
-     */
+    /** @var string */
     public $codejercicio;
 
-    /**
-     *
-     * @var string
-     */
+    /** @var string */
     public $codretencion;
 
-    /**
-     *
-     * @var string
-     */
+    /** @var string */
     public $dateEnd;
 
-    /**
-     *
-     * @var string
-     */
+    /** @var string */
     public $dateStart;
 
-    /**
-     *
-     * @var int
-     */
+    /** @var int */
     protected $idempresa;
 
-    /**
-     *
-     * @var FacturaProveedor[]
-     */
+    /** @var FacturaProveedor[] */
     public $invoices = [];
 
-    /**
-     *
-     * @var int
-     */
+    /** @var int */
     public $numrecipients = 0;
 
-    /**
-     *
-     * @var string
-     */
+    /** @var string */
     public $period = 'T1';
 
-    /**
-     *
-     * @var float
-     */
+    /** @var float */
     public $result = 0.0;
 
-    /**
-     *
-     * @var float
-     */
+    /** @var float */
     public $retentions = 0.0;
 
-    /**
-     *
-     * @var float
-     */
+    /** @var float */
     public $taxbase = 0.0;
 
-    /**
-     *
-     * @var float
-     */
+    /** @var float */
     public $todeduct = 0.0;
 
     /**
-     * 
+     * @param int|null $idempresa
      * @return Ejercicio[]
      */
-    public function allExercises()
+    public function allExercises(?int $idempresa): array
     {
-        $exercise = new Ejercicio();
-        return $exercise->all([], ['nombre' => 'DESC'], 0, 0);
+        if (empty($idempresa)) {
+            return Ejercicios::all();
+        }
+
+        $list = [];
+        foreach (Ejercicios::all() as $exercise) {
+            if ($exercise->idempresa === $idempresa) {
+                $list[] = $exercise;
+            }
+        }
+        return $list;
     }
 
-    /**
-     * 
-     * @return array
-     */
-    public function allPeriods()
+    public function allPeriods(): array
     {
         return [
             'T1' => 'first-trimester',
@@ -128,20 +98,13 @@ class Modelo115 extends Controller
         ];
     }
 
-    /**
-     * 
-     * @return array
-     */
-    public function allRetentions()
+    /** @return Retencion[] */
+    public function allRetentions(): array
     {
         $retention = new Retencion();
         return $retention->all([], ['descripcion' => 'ASC'], 0, 0);
     }
 
-    /**
-     * 
-     * @return array
-     */
     public function getPageData(): array
     {
         $data = parent::getPageData();
@@ -222,7 +185,7 @@ class Modelo115 extends Controller
         }
 
         $this->numrecipients = \count($recipients);
-        $this->todeduct = (float) $this->request->request->get('todeduct');
+        $this->todeduct = (float)$this->request->request->get('todeduct');
         $this->result = $this->retentions - $this->todeduct;
     }
 }
