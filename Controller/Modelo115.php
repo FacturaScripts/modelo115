@@ -1,7 +1,7 @@
 <?php
 /**
  * This file is part of Modelo115 plugin for FacturaScripts
- * Copyright (C) 2020-2023 Carlos Garcia Gomez <carlos@facturascripts.com>
+ * Copyright (C) 2020-2025 Carlos Garcia Gomez <carlos@facturascripts.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as
@@ -110,19 +110,20 @@ class Modelo115 extends Controller
         $data = parent::getPageData();
         $data['menu'] = 'reports';
         $data['title'] = 'model-115';
-        $data['icon'] = 'fas fa-book';
+        $data['icon'] = 'fa-solid fa-book';
         return $data;
     }
 
     public function privateCore(&$response, $user, $permissions)
     {
         parent::privateCore($response, $user, $permissions);
+
         $this->loadDates();
         $this->loadInvoices();
         $this->loadResults();
     }
 
-    protected function loadDates()
+    protected function loadDates(): void
     {
         $this->codejercicio = $this->request->request->get('codejercicio', '');
         $this->period = $this->request->request->get('period', $this->period);
@@ -134,28 +135,28 @@ class Modelo115 extends Controller
 
         switch ($this->period) {
             case 'T1':
-                $this->dateStart = \date('01-01-Y', \strtotime($exercise->fechainicio));
-                $this->dateEnd = \date('31-03-Y', \strtotime($exercise->fechainicio));
+                $this->dateStart = date('01-01-Y', strtotime($exercise->fechainicio));
+                $this->dateEnd = date('31-03-Y', strtotime($exercise->fechainicio));
                 break;
 
             case 'T2':
-                $this->dateStart = \date('01-04-Y', \strtotime($exercise->fechainicio));
-                $this->dateEnd = \date('30-06-Y', \strtotime($exercise->fechainicio));
+                $this->dateStart = date('01-04-Y', strtotime($exercise->fechainicio));
+                $this->dateEnd = date('30-06-Y', strtotime($exercise->fechainicio));
                 break;
 
             case 'T3':
-                $this->dateStart = \date('01-07-Y', \strtotime($exercise->fechainicio));
-                $this->dateEnd = \date('30-09-Y', \strtotime($exercise->fechainicio));
+                $this->dateStart = date('01-07-Y', strtotime($exercise->fechainicio));
+                $this->dateEnd = date('30-09-Y', strtotime($exercise->fechainicio));
                 break;
 
             default:
-                $this->dateStart = \date('01-10-Y', \strtotime($exercise->fechainicio));
-                $this->dateEnd = \date('31-12-Y', \strtotime($exercise->fechainicio));
+                $this->dateStart = date('01-10-Y', strtotime($exercise->fechainicio));
+                $this->dateEnd = date('31-12-Y', strtotime($exercise->fechainicio));
                 break;
         }
     }
 
-    protected function loadInvoices()
+    protected function loadInvoices(): void
     {
         $invoiceModel = new FacturaProveedor();
         $where = [
@@ -175,7 +176,7 @@ class Modelo115 extends Controller
         $this->invoices = $invoiceModel->all($where, $order, 0, 0);
     }
 
-    protected function loadResults()
+    protected function loadResults(): void
     {
         $recipients = [];
         foreach ($this->invoices as $invoice) {
@@ -184,7 +185,7 @@ class Modelo115 extends Controller
             $this->retentions += $invoice->totalirpf;
         }
 
-        $this->numrecipients = \count($recipients);
+        $this->numrecipients = count($recipients);
         $this->todeduct = (float)$this->request->request->get('todeduct');
         $this->result = $this->retentions - $this->todeduct;
     }
