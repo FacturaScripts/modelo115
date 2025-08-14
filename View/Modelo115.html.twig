@@ -11,11 +11,11 @@
                     <p>{{ trans('model-115-p') }}</p>
                 </div>
             </div>
-            <div class="form-row align-items-end">
+            <div class="row align-items-end">
                 <div class="col-sm-3">
-                    <div class="form-group">
+                    <div class="mb-3">
                         {{ trans('exercise') }}
-                        <select name="codejercicio" class="form-control" required>
+                        <select name="codejercicio" class="form-select" required>
                             {% for company in fsc.empresa.all() %}
                                 <optgroup label="{{ company.nombre }}">
                                     {% for exercise in fsc.allExercises(company.idempresa) %}
@@ -31,9 +31,9 @@
                     </div>
                 </div>
                 <div class="col-sm-3">
-                    <div class="form-group">
+                    <div class="mb-3">
                         {{ trans('period') }}
-                        <select name="period" class="form-control" required>
+                        <select name="period" class="form-select" required>
                             {% for period, label in fsc.allPeriods() %}
                                 {% if period == fsc.period %}
                                     <option value="{{ period }}" selected>{{ trans(label) }}</option>
@@ -45,9 +45,9 @@
                     </div>
                 </div>
                 <div class="col-sm-3">
-                    <div class="form-group">
+                    <div class="mb-3">
                         {{ trans('retention') }}
-                        <select name="codretencion" class="form-control">
+                        <select name="codretencion" class="form-select">
                             <option value="">------</option>
                             {% for ret in fsc.allRetentions() %}
                                 {% if ret.codretencion == fsc.codretencion %}
@@ -61,7 +61,7 @@
                     </div>
                 </div>
                 <div class="col">
-                    <div class="form-group">
+                    <div class="mb-3">
                         <button type="submit" name="action" value="show" class="btn btn-primary">
                             <i class="fa-solid fa-eye fa-fw"></i> {{ trans('preview') }}
                         </button>
@@ -78,61 +78,51 @@
                 </div>
                 <div class="row">
                     <div class="col">
-                        <div class="form-group">
+                        <div class="mb-3">
                             {{ trans('number-recipients') }}
                             <div class="input-group">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text">01</span>
-                                </div>
-                                <input type="number" value="{{ fsc.numrecipients }}" class="form-control text-right"
+                                <span class="input-group-text">01</span>
+                                <input type="number" value="{{ fsc.numrecipients }}" class="form-control text-end"
                                        readonly/>
                             </div>
                         </div>
                     </div>
                     <div class="col">
-                        <div class="form-group">
+                        <div class="mb-3">
                             {{ trans('tax-base') }}
                             <div class="input-group">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text">02</span>
-                                </div>
-                                <input type="number" value="{{ fsc.taxbase }}" class="form-control text-right"
+                                <span class="input-group-text">02</span>
+                                <input type="number" value="{{ fsc.taxbase }}" class="form-control text-end"
                                        readonly/>
                             </div>
                         </div>
                     </div>
                     <div class="col">
-                        <div class="form-group">
+                        <div class="mb-3">
                             {{ trans('retentions') }}
                             <div class="input-group">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text">03</span>
-                                </div>
-                                <input type="number" value="{{ fsc.retentions }}" class="form-control text-right"
+                                <span class="input-group-text">03</span>
+                                <input type="number" value="{{ fsc.retentions }}" class="form-control text-end"
                                        readonly/>
                             </div>
                         </div>
                     </div>
                     <div class="col">
-                        <div class="form-group">
+                        <div class="mb-3">
                             {{ trans('to-deduct') }}
                             <div class="input-group">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text">04</span>
-                                </div>
+                                <span class="input-group-text">04</span>
                                 <input type="number" name="todeduct" value="{{ fsc.todeduct }}"
-                                       class="form-control text-right" required onchange="this.form.submit();"/>
+                                       class="form-control text-end" required onchange="this.form.submit();"/>
                             </div>
                         </div>
                     </div>
                     <div class="col">
-                        <div class="form-group">
+                        <div class="mb-3">
                             {{ trans('result') }}
                             <div class="input-group">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text">05</span>
-                                </div>
-                                <input type="number" value="{{ fsc.result }}" class="form-control text-right" readonly/>
+                                <span class="input-group-text">05</span>
+                                <input type="number" value="{{ fsc.result }}" class="form-control text-end" readonly/>
                             </div>
                         </div>
                     </div>
@@ -148,12 +138,12 @@
                                 <tr>
                                     <th>{{ trans('invoice') }}</th>
                                     <th>{{ trans('supplier') }}</th>
-                                    <th class="text-right">{{ trans('net') }}</th>
-                                    <th class="text-right">{{ trans('taxes') }}</th>
-                                    <th class="text-right">{{ trans('surcharge') }}</th>
-                                    <th class="text-right">{{ trans('retention') }}</th>
-                                    <th class="text-right">{{ trans('total') }}</th>
-                                    <th class="text-right">{{ trans('date') }}</th>
+                                    <th class="text-end">{{ trans('net') }}</th>
+                                    <th class="text-end">{{ trans('taxes') }}</th>
+                                    <th class="text-end">{{ trans('surcharge') }}</th>
+                                    <th class="text-end">{{ trans('retention') }}</th>
+                                    <th class="text-end">{{ trans('total') }}</th>
+                                    <th class="text-end">{{ trans('date') }}</th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -163,12 +153,12 @@
                                             <a href="{{ item.url() }}">{{ item.codigo }}</a>
                                         </td>
                                         <td>{{ item.nombre | raw }}</td>
-                                        <td class="text-right">{{ money(item.neto) }}</td>
-                                        <td class="text-right">{{ money(item.totaliva) }}</td>
-                                        <td class="text-right">{{ money(item.totalrecargo) }}</td>
-                                        <td class="text-right">{{ money(item.totalirpf) }}</td>
-                                        <td class="text-right">{{ money(item.total) }}</td>
-                                        <td class="text-right">{{ item.fecha }}</td>
+                                        <td class="text-end">{{ money(item.neto) }}</td>
+                                        <td class="text-end">{{ money(item.totaliva) }}</td>
+                                        <td class="text-end">{{ money(item.totalrecargo) }}</td>
+                                        <td class="text-end">{{ money(item.totalirpf) }}</td>
+                                        <td class="text-end">{{ money(item.total) }}</td>
+                                        <td class="text-end">{{ item.fecha }}</td>
                                     </tr>
                                 {% else %}
                                     <tr class="table-warning">

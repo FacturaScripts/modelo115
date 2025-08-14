@@ -22,6 +22,8 @@ namespace FacturaScripts\Plugins\Modelo115\Controller;
 use FacturaScripts\Core\Base\Controller;
 use FacturaScripts\Core\Base\DataBase\DataBaseWhere;
 use FacturaScripts\Core\DataSrc\Ejercicios;
+use FacturaScripts\Core\Tools;
+
 use FacturaScripts\Dinamic\Model\Ejercicio;
 use FacturaScripts\Dinamic\Model\FacturaProveedor;
 use FacturaScripts\Dinamic\Model\Retencion;
@@ -129,7 +131,7 @@ class Modelo115 extends Controller
         $this->period = $this->request->request->get('period', $this->period);
 
         $exercise = new Ejercicio();
-        $exercise->loadFromCode($this->codejercicio);
+        $exercise->load($this->codejercicio);
 
         $this->idempresa = $exercise->idempresa;
 
@@ -168,7 +170,7 @@ class Modelo115 extends Controller
 
         $this->codretencion = $this->request->request->get('codretencion', '');
         $retention = new Retencion();
-        if (!empty($this->codretencion) && $retention->loadFromCode($this->codretencion)) {
+        if (!empty($this->codretencion) && $retention->load($this->codretencion)) {
             $where[] = new DataBaseWhere('irpf', $retention->porcentaje);
         }
 
