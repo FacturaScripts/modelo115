@@ -22,8 +22,6 @@ namespace FacturaScripts\Plugins\Modelo115\Controller;
 use FacturaScripts\Core\Base\Controller;
 use FacturaScripts\Core\Base\DataBase\DataBaseWhere;
 use FacturaScripts\Core\DataSrc\Ejercicios;
-use FacturaScripts\Core\Tools;
-
 use FacturaScripts\Dinamic\Model\Ejercicio;
 use FacturaScripts\Dinamic\Model\FacturaProveedor;
 use FacturaScripts\Dinamic\Model\Retencion;
@@ -103,8 +101,7 @@ class Modelo115 extends Controller
     /** @return Retencion[] */
     public function allRetentions(): array
     {
-        $retention = new Retencion();
-        return $retention->all([], ['descripcion' => 'ASC'], 0, 0);
+        return Retencion::all([], ['descripcion' => 'ASC'], 0, 0);
     }
 
     public function getPageData(): array
@@ -160,7 +157,6 @@ class Modelo115 extends Controller
 
     protected function loadInvoices(): void
     {
-        $invoiceModel = new FacturaProveedor();
         $where = [
             new DataBaseWhere('fecha', $this->dateStart, '>='),
             new DataBaseWhere('fecha', $this->dateEnd, '<='),
@@ -175,7 +171,7 @@ class Modelo115 extends Controller
         }
 
         $order = ['fecha' => 'ASC', 'numero' => 'ASC'];
-        $this->invoices = $invoiceModel->all($where, $order, 0, 0);
+        $this->invoices = FacturaProveedor::all($where, $order, 0, 0);
     }
 
     protected function loadResults(): void
