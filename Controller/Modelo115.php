@@ -20,16 +20,15 @@
 namespace FacturaScripts\Plugins\Modelo115\Controller;
 
 use FacturaScripts\Core\Base\Controller;
-use FacturaScripts\Core\Base\DataBase\DataBaseWhere;
 use FacturaScripts\Core\DataSrc\Ejercicios;
+use FacturaScripts\Core\Tools;
+use FacturaScripts\Dinamic\Lib\Modelo115 as LibModelo115;
 use FacturaScripts\Dinamic\Model\Ejercicio;
-use FacturaScripts\Dinamic\Model\FacturaProveedor;
 use FacturaScripts\Dinamic\Model\Retencion;
 
 /**
- * Description of Modelo115
- *
  * @author Carlos Garcia Gomez <carlos@facturascripts.com>
+ * @author Daniel Fernández Giménez <contacto@danielfg.es>
  */
 class Modelo115 extends Controller
 {
@@ -39,32 +38,11 @@ class Modelo115 extends Controller
     /** @var string */
     public $codretencion;
 
-    /** @var string */
-    public $dateEnd;
-
-    /** @var string */
-    public $dateStart;
-
-    /** @var int */
-    protected $idempresa;
-
-    /** @var FacturaProveedor[] */
-    public $invoices = [];
-
-    /** @var int */
-    public $numrecipients = 0;
+    /** @var array */
+    public $result = [];
 
     /** @var string */
     public $period = 'T1';
-
-    /** @var float */
-    public $result = 0.0;
-
-    /** @var float */
-    public $retentions = 0.0;
-
-    /** @var float */
-    public $taxbase = 0.0;
 
     /** @var float */
     public $todeduct = 0.0;
@@ -94,21 +72,21 @@ class Modelo115 extends Controller
             'T1' => 'first-trimester',
             'T2' => 'second-trimester',
             'T3' => 'third-trimester',
-            'T4' => 'fourth-trimester'
+            'T4' => 'fourth-trimester',
+            'ANNUAL' => 'annual-180',
         ];
     }
 
-    /** @return Retencion[] */
     public function allRetentions(): array
     {
-        return Retencion::all([], ['descripcion' => 'ASC'], 0, 0);
+        return Retencion::all([], ['descripcion' => 'ASC']);
     }
 
     public function getPageData(): array
     {
         $data = parent::getPageData();
         $data['menu'] = 'reports';
-        $data['title'] = 'model-115';
+        $data['title'] = 'model-115-180';
         $data['icon'] = 'fa-solid fa-book';
         return $data;
     }
@@ -117,74 +95,29 @@ class Modelo115 extends Controller
     {
         parent::privateCore($response, $user, $permissions);
 
-        $this->loadDates();
-        $this->loadInvoices();
-        $this->loadResults();
+        $this->codejercicio = $this->request->inputOrQuery('codejercicio', date('Y'));
+        $this->period = $this->request->inputOrQuery('period', $this->getCurrentPeriod());
+        $this->codretencion = $this->request->inputOrQuery('codretencion', '');
+        $this->todeduct = (float)$this->request->inputOrQuery('todeduct', 0);
+
+        $this->result = LibModelo115::generate(
+            $this->codejercicio,
+            $this->period,
+            $this->codretencion,
+            $this->todeduct
+        );
     }
 
-    protected function loadDates(): void
+    protected function getCurrentPeriod(): string
     {
-        $this->codejercicio = $this->request->request->get('codejercicio', '');
-        $this->period = $this->request->request->get('period', $this->period);
-
-        $exercise = new Ejercicio();
-        $exercise->load($this->codejercicio);
-
-        $this->idempresa = $exercise->idempresa;
-
-        switch ($this->period) {
-            case 'T1':
-                $this->dateStart = date('01-01-Y', strtotime($exercise->fechainicio));
-                $this->dateEnd = date('31-03-Y', strtotime($exercise->fechainicio));
-                break;
-
-            case 'T2':
-                $this->dateStart = date('01-04-Y', strtotime($exercise->fechainicio));
-                $this->dateEnd = date('30-06-Y', strtotime($exercise->fechainicio));
-                break;
-
-            case 'T3':
-                $this->dateStart = date('01-07-Y', strtotime($exercise->fechainicio));
-                $this->dateEnd = date('30-09-Y', strtotime($exercise->fechainicio));
-                break;
-
-            default:
-                $this->dateStart = date('01-10-Y', strtotime($exercise->fechainicio));
-                $this->dateEnd = date('31-12-Y', strtotime($exercise->fechainicio));
-                break;
-        }
-    }
-
-    protected function loadInvoices(): void
-    {
-        $where = [
-            new DataBaseWhere('fecha', $this->dateStart, '>='),
-            new DataBaseWhere('fecha', $this->dateEnd, '<='),
-            new DataBaseWhere('idempresa', $this->idempresa),
-            new DataBaseWhere('totalirpf', 0.0, '!=')
-        ];
-
-        $this->codretencion = $this->request->request->get('codretencion', '');
-        $retention = new Retencion();
-        if (!empty($this->codretencion) && $retention->load($this->codretencion)) {
-            $where[] = new DataBaseWhere('irpf', $retention->porcentaje);
-        }
-
-        $order = ['fecha' => 'ASC', 'numero' => 'ASC'];
-        $this->invoices = FacturaProveedor::all($where, $order, 0, 0);
-    }
-
-    protected function loadResults(): void
-    {
-        $recipients = [];
-        foreach ($this->invoices as $invoice) {
-            $recipients[$invoice->codproveedor] = $invoice->codproveedor;
-            $this->taxbase += $invoice->neto;
-            $this->retentions += $invoice->totalirpf;
-        }
-
-        $this->numrecipients = count($recipients);
-        $this->todeduct = (float)$this->request->request->get('todeduct');
-        $this->result = $this->retentions - $this->todeduct;
+        // obtenemos el número del trimestre en el que se encuentra la fecha actual
+        $month = date('n');
+        return match ($month) {
+            1, 2, 3 => 'T1',
+            4, 5, 6 => 'T2',
+            7, 8, 9 => 'T3',
+            10, 11, 12 => 'T4',
+            default => 'T1',
+        };
     }
 }
