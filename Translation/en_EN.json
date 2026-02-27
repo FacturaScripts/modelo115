@@ -1,5 +1,8 @@
 {
+    "annual-180": "Annual (Model 180)",
     "model-115": "Model 115",
+    "model-115-180": "Model 115 and 180",
     "model-115-p": "Form 115 is a quarterly declaration of the withholdings applied to the rental of urban properties in which we carry out a business activity.",
+    "model-180-p": "Model 180 is an annual declaration of the withholdings applied to rents of urban properties where business activity is carried out.",
     "to-deduct": "To deduct"
 }
