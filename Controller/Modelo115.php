@@ -187,7 +187,7 @@ class Modelo115 extends Controller
             }
             $rows[] = [
                 $invoice => '',
-                $supplier => Tools::trans('total'),
+                $supplier => Tools::trans('totals'),
                 $net => Tools::money($this->result['totalNeto']),
                 $taxes => Tools::money($this->result['totalIva']),
                 $surcharge => Tools::money($this->result['totalRecargo']),
