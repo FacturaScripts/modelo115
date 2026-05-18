@@ -22,6 +22,7 @@ namespace FacturaScripts\Plugins\Modelo115\Controller;
 use FacturaScripts\Core\Base\Controller;
 use FacturaScripts\Core\DataSrc\Ejercicios;
 use FacturaScripts\Core\Tools;
+use FacturaScripts\Dinamic\Lib\ExportManager;
 use FacturaScripts\Dinamic\Lib\Modelo115 as LibModelo115;
 use FacturaScripts\Dinamic\Model\Ejercicio;
 use FacturaScripts\Dinamic\Model\Retencion;
@@ -106,6 +107,101 @@ class Modelo115 extends Controller
             $this->codretencion,
             $this->todeduct
         );
+
+        $totalNeto = 0.0;
+        $totalIva = 0.0;
+        $totalRecargo = 0.0;
+        $totalIrpf = 0.0;
+        $totalTotal = 0.0;
+        foreach ($this->result['invoices'] ?? [] as $invoice) {
+            $totalNeto += $invoice->neto;
+            $totalIva += $invoice->totaliva;
+            $totalRecargo += $invoice->totalrecargo;
+            $totalIrpf += $invoice->totalirpf;
+            $totalTotal += $invoice->total;
+        }
+        $this->result['totalNeto'] = $totalNeto;
+        $this->result['totalIva'] = $totalIva;
+        $this->result['totalRecargo'] = $totalRecargo;
+        $this->result['totalIrpf'] = $totalIrpf;
+        $this->result['totalTotal'] = $totalTotal;
+
+        $action = $this->request->inputOrQuery('action', '');
+        if ($action === 'print') {
+            $this->printAction();
+        }
+    }
+
+    protected function printAction(): void
+    {
+        if (empty($this->result)) {
+            return;
+        }
+
+        $this->setTemplate(false);
+
+        $exportManager = new ExportManager();
+        $exportManager->newDoc('PDF', Tools::trans('model-115-180'));
+
+        // resumen
+        $recipients = Tools::trans('number-recipients');
+        $taxbase = Tools::trans('tax-base');
+        $retentions = Tools::trans('retentions');
+        $todeduct = Tools::trans('to-deduct');
+        $result = Tools::trans('result');
+
+        $exportManager->addTablePage(
+            [$recipients, $taxbase, $retentions, $todeduct, $result],
+            [[
+                $recipients => $this->result['numrecipients'],
+                $taxbase => Tools::money($this->result['taxbase']),
+                $retentions => Tools::money($this->result['retentions']),
+                $todeduct => Tools::money($this->result['todeduct']),
+                $result => Tools::money($this->result['result']),
+            ]]
+        );
+
+        // facturas
+        if (!empty($this->result['invoices'])) {
+            $invoice = Tools::trans('invoice');
+            $supplier = Tools::trans('supplier');
+            $net = Tools::trans('net');
+            $taxes = Tools::trans('taxes');
+            $surcharge = Tools::trans('surcharge');
+            $retention = Tools::trans('retention');
+            $total = Tools::trans('total');
+            $date = Tools::trans('date');
+
+            $rows = [];
+            foreach ($this->result['invoices'] as $item) {
+                $rows[] = [
+                    $invoice => $item->codigo,
+                    $supplier => $item->nombre,
+                    $net => Tools::money($item->neto),
+                    $taxes => Tools::money($item->totaliva),
+                    $surcharge => Tools::money($item->totalrecargo),
+                    $retention => Tools::money($item->totalirpf),
+                    $total => Tools::money($item->total),
+                    $date => $item->fecha,
+                ];
+            }
+            $rows[] = [
+                $invoice => '',
+                $supplier => Tools::trans('total'),
+                $net => Tools::money($this->result['totalNeto']),
+                $taxes => Tools::money($this->result['totalIva']),
+                $surcharge => Tools::money($this->result['totalRecargo']),
+                $retention => Tools::money($this->result['totalIrpf']),
+                $total => Tools::money($this->result['totalTotal']),
+                $date => '',
+            ];
+            $exportManager->addTablePage(
+                [$invoice, $supplier, $net, $taxes, $surcharge, $retention, $total, $date],
+                $rows
+            );
+        }
+
+        $exportManager->show($this->response);
     }
 
     protected function getCurrentPeriod(): string

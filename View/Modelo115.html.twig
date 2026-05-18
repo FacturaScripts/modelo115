@@ -67,6 +67,12 @@
                         <button type="submit" name="action" value="show" class="btn btn-primary">
                             <i class="fa-solid fa-eye me-1"></i> {{ trans('preview') }}
                         </button>
+                        {% if fsc.result.invoices is not empty %}
+                            <button type="submit" name="action" value="print" formtarget="_blank"
+                                    class="btn btn-secondary ms-2">
+                                <i class="fa-solid fa-print me-1"></i> {{ trans('print') }}
+                            </button>
+                        {% endif %}
                     </div>
                 </div>
             </div>
@@ -168,6 +174,18 @@
                                     </tr>
                                 {% endfor %}
                                 </tbody>
+                                <tfoot>
+                                <tr class="table-active fw-bold">
+                                    <td></td>
+                                    <td>{{ trans('total') }}</td>
+                                    <td class="text-end">{{ money(fsc.result.totalNeto) }}</td>
+                                    <td class="text-end">{{ money(fsc.result.totalIva) }}</td>
+                                    <td class="text-end">{{ money(fsc.result.totalRecargo) }}</td>
+                                    <td class="text-end">{{ money(fsc.result.totalIrpf) }}</td>
+                                    <td class="text-end">{{ money(fsc.result.totalTotal) }}</td>
+                                    <td></td>
+                                </tr>
+                                </tfoot>
                             </table>
                         </div>
                     </div>
