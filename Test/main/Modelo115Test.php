@@ -25,6 +25,7 @@ use FacturaScripts\Dinamic\Model\Ejercicio;
 use FacturaScripts\Dinamic\Model\FacturaProveedor;
 use FacturaScripts\Dinamic\Model\Proveedor;
 use FacturaScripts\Dinamic\Model\Retencion;
+use FacturaScripts\Dinamic\Model\Subcuenta;
 use FacturaScripts\Plugins\Modelo115\Lib\Modelo115;
 
 final class Modelo115Test extends Modelo115TestCase
@@ -132,6 +133,64 @@ final class Modelo115Test extends Modelo115TestCase
         }, $result['invoices']);
         $this->assertContains($invoice7->codigo, $codes);
         $this->assertNotContains($invoice19->codigo, $codes);
+    }
+
+    /**
+     * Las retenciones que no van a una subcuenta de alquileres (cuenta especial
+     * IRPFA) corresponden al modelo 111 y no deben aparecer en el modelo 115.
+     * Issue 110-286-046.
+     */
+    public function testExcluyeRetencionesProfesionales(): void
+    {
+        $exercise = $this->getCurrentExercise();
+
+        // creamos la subcuenta de retenciones de alquileres con la cuenta especial IRPFA
+        $subAlquiler = new Subcuenta();
+        $subAlquiler->codcuenta = '4751';
+        $subAlquiler->codcuentaesp = 'IRPFA';
+        $subAlquiler->codejercicio = $exercise->codejercicio;
+        $subAlquiler->codsubcuenta = '4751000019';
+        $subAlquiler->descripcion = 'HP acreedora retenciones alquileres';
+        $this->assertTrue($subAlquiler->save());
+
+        // creamos la retención de alquileres del 18% sobre esa subcuenta
+        // (usamos un porcentaje que no existe por defecto para que la
+        // contabilización use esta retención y no otra)
+        $retencion = new Retencion();
+        $retencion->codretencion = 'ALQ18';
+        $retencion->codsubcuentaacr = $subAlquiler->codsubcuenta;
+        $retencion->descripcion = 'IRPF alquileres 18%';
+        $retencion->porcentaje = 18;
+        $this->assertTrue($retencion->save());
+        $this->addCleanup(static function () use ($retencion, $subAlquiler) {
+            $retencion->delete();
+            $subAlquiler->delete();
+        });
+
+        $before = Modelo115::generate($exercise->codejercicio, $this->getCurrentPeriod(), '');
+
+        // una factura de alquiler al 18% y otra profesional al 15% (retención
+        // por defecto IRPF15, que contabiliza a la subcuenta genérica IRPFPR)
+        $invoiceAlquiler = $this->createSupplierInvoice(1000.0, 18.0);
+        $invoiceProfesional = $this->createSupplierInvoice(1000.0, 15.0);
+
+        // ambas facturas deben tener asiento para poder clasificarlas
+        $this->assertNotEmpty($invoiceAlquiler->idasiento);
+        $this->assertNotEmpty($invoiceProfesional->idasiento);
+
+        $result = Modelo115::generate($exercise->codejercicio, $this->getCurrentPeriod(), '');
+        $this->assertNotEmpty($result);
+
+        // solo debe salir la factura de alquiler
+        $this->assertEqualsWithDelta($before['taxbase'] + 1000.0, $result['taxbase'], 0.001);
+        $this->assertEqualsWithDelta($before['retentions'] + 180.0, $result['retentions'], 0.001);
+        $this->assertSame($before['numrecipients'] + 1, $result['numrecipients']);
+
+        $codes = array_map(static function (FacturaProveedor $item) {
+            return $item->codigo;
+        }, $result['invoices']);
+        $this->assertContains($invoiceAlquiler->codigo, $codes);
+        $this->assertNotContains($invoiceProfesional->codigo, $codes);
     }
 
     public function testNumPerceptores(): void

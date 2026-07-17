@@ -21,9 +21,12 @@ namespace FacturaScripts\Plugins\Modelo115\Lib;
 
 use FacturaScripts\Core\Base\DataBase;
 use FacturaScripts\Core\Where;
+use FacturaScripts\Dinamic\Model\CuentaEspecial;
 use FacturaScripts\Dinamic\Model\Ejercicio;
 use FacturaScripts\Dinamic\Model\FacturaProveedor;
+use FacturaScripts\Dinamic\Model\Partida;
 use FacturaScripts\Dinamic\Model\Retencion;
+use FacturaScripts\Dinamic\Model\Subcuenta;
 
 /**
  * @author Carlos Garcia Gomez <carlos@facturascripts.com>
@@ -154,7 +157,85 @@ class Modelo115
         }
 
         $order = ['fecha' => 'ASC', 'numero' => 'ASC'];
-        static::$invoices = FacturaProveedor::all($where, $order, 0, 0);
+        $invoices = FacturaProveedor::all($where, $order, 0, 0);
+
+        // excluimos las facturas cuyas retenciones no son de alquileres (IRPFA),
+        // que van al modelo 111. Issue 110-286-046.
+        static::$invoices = static::filterRentalInvoices($invoices);
+    }
+
+    /**
+     * Devuelve solamente las facturas cuyo asiento tiene alguna partida en una
+     * subcuenta de retenciones de alquileres (IRPFA). Si el ejercicio no tiene
+     * subcuentas IRPFA, no podemos distinguir y se devuelven todas.
+     *
+     * @param FacturaProveedor[] $invoices
+     * @return FacturaProveedor[]
+     */
+    protected static function filterRentalInvoices(array $invoices): array
+    {
+        $ids = static::getSubcuentasIRPFA();
+        if (empty($ids)) {
+            return $invoices;
+        }
+
+        // obtenemos los asientos de las facturas
+        $asientos = [];
+        foreach ($invoices as $invoice) {
+            if ($invoice->idasiento) {
+                $asientos[$invoice->idasiento] = $invoice->idasiento;
+            }
+        }
+        if (empty($asientos)) {
+            return $invoices;
+        }
+
+        // asientos con alguna partida en una subcuenta IRPFA
+        $rentalAsientos = [];
+        $sql = 'SELECT DISTINCT idasiento FROM ' . Partida::tableName()
+            . ' WHERE idasiento IN (' . implode(',', $asientos) . ')'
+            . ' AND idsubcuenta IN (' . implode(',', $ids) . ')';
+        foreach (static::$dataBase->select($sql) as $row) {
+            $rentalAsientos[$row['idasiento']] = $row['idasiento'];
+        }
+
+        $result = [];
+        foreach ($invoices as $invoice) {
+            // si la factura no tiene asiento, no podemos clasificarla y la mantenemos
+            if (empty($invoice->idasiento) || isset($rentalAsientos[$invoice->idasiento])) {
+                $result[] = $invoice;
+            }
+        }
+        return $result;
+    }
+
+    /**
+     * Devuelve los IDs de las subcuentas de retenciones de alquileres (IRPFA) del ejercicio.
+     *
+     * @return array
+     */
+    protected static function getSubcuentasIRPFA(): array
+    {
+        $ids = [];
+
+        // subcuentas de la cuenta con cuenta especial IRPFA
+        $special = new CuentaEspecial();
+        if ($special->loadWhere([Where::eq('codcuentaesp', 'IRPFA')])) {
+            foreach ($special->getCuenta(static::$exercise->codejercicio)->getSubcuentas() as $subcuenta) {
+                $ids[$subcuenta->id()] = $subcuenta->id();
+            }
+        }
+
+        // subcuentas marcadas directamente con la cuenta especial IRPFA
+        $where = [
+            Where::eq('codejercicio', static::$exercise->codejercicio),
+            Where::eq('codcuentaesp', 'IRPFA'),
+        ];
+        foreach (Subcuenta::all($where) as $subcuenta) {
+            $ids[$subcuenta->id()] = $subcuenta->id();
+        }
+
+        return $ids;
     }
 
     protected static function loadResults(): void
