@@ -37,6 +37,13 @@ class PurchasesHeaderHTMLMod implements PurchasesModInterface
     /** Nombre del campo del formulario y de la columna del documento. */
     const FIELD = 'idinmueble180';
 
+    /**
+     * Se aplica después de los demás campos: si el inmueble elegido no existe o es de otro proveedor (por
+     * ejemplo, al cambiar de proveedor), lo quita.
+     *
+     * @param PurchaseDocument $model documento de compra
+     * @param array $formData datos del formulario
+     */
     public function apply(PurchaseDocument &$model, array $formData): void
     {
         // si se cambia de proveedor, quitamos el inmueble si es de otro
@@ -64,25 +71,51 @@ class PurchasesHeaderHTMLMod implements PurchasesModInterface
         }
     }
 
+    /**
+     * Este mod no añade recursos (CSS ni JS).
+     */
     public function assets(): void
     {
     }
 
+    /**
+     * Este mod no añade botones a la cabecera.
+     *
+     * @return array
+     */
     public function newBtnFields(): array
     {
         return [];
     }
 
+    /**
+     * Este mod no añade campos a la cabecera principal.
+     *
+     * @return array
+     */
     public function newFields(): array
     {
         return [];
     }
 
+    /**
+     * Añade el campo inmueble180 al modal de detalle de la cabecera.
+     *
+     * @return array
+     */
     public function newModalFields(): array
     {
         return ['inmueble180'];
     }
 
+    /**
+     * Dibuja el campo inmueble180; el resto de campos los dibujan otros mods.
+     *
+     * @param PurchaseDocument $model documento de compra
+     * @param string $field nombre del campo
+     *
+     * @return string|null HTML del selector o null si el campo no es de este mod
+     */
     public function renderField(PurchaseDocument $model, string $field): ?string
     {
         if ($field === 'inmueble180') {

@@ -1,0 +1,145 @@
+{
+  "base_url": "https://fs.localhost/",
+  "login": true,
+  "output_dir": "Doc/Assets/como-hacer-el-modelo-180",
+  "redact": {
+    "keep": [],
+    "replace": {
+      "FS": "Mi Empresa"
+    }
+  },
+  "captures": [
+    {
+      "name": "01-periodo-anual",
+      "url": "Modelo115?codejercicio=2026&period=ANNUAL",
+      "steps": [
+        {
+          "eval": "document.querySelectorAll('select[name=codejercicio],select[name=period]').forEach(e=>e.closest('.mb-3').classList.add('mk'))"
+        }
+      ],
+      "highlight": [
+        {
+          "target": ".mk",
+          "nth": 0,
+          "label": "1",
+          "padding": 8
+        },
+        {
+          "target": ".mk",
+          "nth": 1,
+          "label": "2",
+          "padding": 8
+        },
+        {
+          "target": "text=Previsualizar",
+          "label": "3"
+        }
+      ],
+      "clip": [
+        "nav.navbar",
+        "text=Previsualizar"
+      ]
+    },
+    {
+      "name": "02-perceptores-del-modelo-180",
+      "url": "Modelo115?codejercicio=2026&period=ANNUAL",
+      "highlight": [
+        {
+          "target": ".alert-warning",
+          "label": "1"
+        },
+        {
+          "target": "tbody a",
+          "nth": 0,
+          "label": "2"
+        },
+        {
+          "target": ".text-danger",
+          "label": "3"
+        },
+        {
+          "target": "tfoot",
+          "nth": 0,
+          "label": "4"
+        }
+      ],
+      "clip": [
+        "text=Perceptores del modelo 180",
+        "table.table-sm"
+      ],
+      "margin": 4
+    },
+    {
+      "name": "03-datos-de-la-declaracion-180",
+      "url": "Modelo115?codejercicio=2026&period=ANNUAL",
+      "steps": [
+        {
+          "eval": "document.querySelectorAll('input[name=receipt],select[name=declarationtype],input[name=previousreceipt],input[name=phone],input[name=contact],button[value=download-180]').forEach(e=>e.closest('.mb-3').classList.add('mk'))"
+        }
+      ],
+      "highlight": [
+        {
+          "target": ".mk",
+          "nth": 0,
+          "label": "1",
+          "padding": 4
+        },
+        {
+          "target": ".mk",
+          "nth": 1,
+          "label": "2",
+          "padding": 4
+        },
+        {
+          "target": ".mk",
+          "nth": 2,
+          "label": "3",
+          "padding": 4
+        },
+        {
+          "target": ".mk",
+          "nth": 3,
+          "label": "4",
+          "padding": 4
+        },
+        {
+          "target": ".mk",
+          "nth": 4,
+          "label": "5",
+          "padding": 4
+        },
+        {
+          "target": ".mk",
+          "nth": 5,
+          "label": "6",
+          "padding": 4
+        }
+      ],
+      "clip": [
+        ".mk"
+      ],
+      "clip_all": true,
+      "margin": 10,
+      "hide": [
+        "tfoot"
+      ]
+    },
+    {
+      "name": "04-aviso-numero-de-declaracion",
+      "url": "Modelo115?codejercicio=2026&period=ANNUAL",
+      "steps": [
+        {
+          "eval": "const i=document.querySelector('input[name=receipt]'); i.value='123'; const f=i.form; const h=document.createElement('input'); h.type='hidden'; h.name='action'; h.value='download-180'; f.appendChild(h); f.submit();"
+        },
+        {
+          "wait": 1500
+        }
+      ],
+      "clip": [
+        "nav.navbar",
+        "text=Previsualizar"
+      ],
+      "margin": 24
+    }
+  ]
+}

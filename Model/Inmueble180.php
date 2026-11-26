@@ -183,6 +183,11 @@ class Inmueble180 extends ModelClass
         return $missing;
     }
 
+    /**
+     * Nombre de la columna clave primaria.
+     *
+     * @return string
+     */
     public static function primaryColumn(): string
     {
         return 'id';
@@ -203,6 +208,11 @@ class Inmueble180 extends ModelClass
         return $address === '' ? '#' . $this->id : $address;
     }
 
+    /**
+     * Nombre de la tabla del modelo.
+     *
+     * @return string
+     */
     public static function tableName(): string
     {
         return 'modelo180_inmuebles';

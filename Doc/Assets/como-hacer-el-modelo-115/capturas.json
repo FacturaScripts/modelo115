@@ -1,0 +1,194 @@
+{
+  "base_url": "https://fs.localhost/",
+  "login": true,
+  "output_dir": "Doc/Assets/como-hacer-el-modelo-115",
+  "redact": {
+    "keep": [],
+    "replace": {
+      "FS": "Mi Empresa"
+    }
+  },
+  "captures": [
+    {
+      "name": "01-menu-modelo-115-y-180",
+      "url": "Dashboard",
+      "steps": [
+        {
+          "click": "text=Informes"
+        },
+        {
+          "eval": "const a=[...document.querySelectorAll('.dropdown-menu.show a')].find(x=>x.textContent.trim()=='Modelos fiscales'); a.parentElement.querySelector('.dropdown-menu').classList.add('show')"
+        }
+      ],
+      "highlight": [
+        {
+          "target": "text=Informes",
+          "label": "1"
+        },
+        {
+          "target": ".dropdown-menu.show >> text=Modelos fiscales",
+          "label": "2"
+        },
+        {
+          "target": ".dropdown-menu.show >> text=Modelo 115 y 180",
+          "label": "3"
+        }
+      ],
+      "clip": [
+        "nav.navbar",
+        ".dropdown-menu.show .dropdown-menu.show"
+      ]
+    },
+    {
+      "name": "02-ejercicio-periodo-y-retencion",
+      "url": "Modelo115?codejercicio=2026&period=T1",
+      "highlight": [
+        {
+          "target": ".col-md-4 .mb-3",
+          "nth": 0,
+          "label": "1",
+          "padding": 10
+        },
+        {
+          "target": ".col-md-4 .mb-3",
+          "nth": 1,
+          "label": "2",
+          "padding": 10
+        },
+        {
+          "target": ".col-md-4 .mb-3",
+          "nth": 2,
+          "label": "3",
+          "padding": 10
+        },
+        {
+          "target": "text=Previsualizar",
+          "label": "4"
+        }
+      ],
+      "clip": [
+        "nav.navbar",
+        "text=Previsualizar"
+      ]
+    },
+    {
+      "name": "03-casillas-del-resumen",
+      "url": "Modelo115?codejercicio=2026&period=T1",
+      "highlight": [
+        {
+          "target": ".col-xl .mb-3",
+          "nth": 0,
+          "label": "1",
+          "padding": 10
+        },
+        {
+          "target": ".col-xl .mb-3",
+          "nth": 1,
+          "label": "2",
+          "padding": 10
+        },
+        {
+          "target": ".col-xl .mb-3",
+          "nth": 2,
+          "label": "3",
+          "padding": 10
+        },
+        {
+          "target": ".col-xl .mb-3",
+          "nth": 3,
+          "label": "4",
+          "padding": 10
+        },
+        {
+          "target": ".col-xl .mb-3",
+          "nth": 4,
+          "label": "5",
+          "padding": 10
+        }
+      ],
+      "clip": [
+        "text=Resumen",
+        ".col-xl .mb-3"
+      ],
+      "clip_all": true,
+      "margin": 24
+    },
+    {
+      "name": "04-facturas-y-totales",
+      "url": "Modelo115?codejercicio=2026&period=T1",
+      "highlight": [
+        {
+          "target": "tbody a",
+          "label": "1"
+        },
+        {
+          "target": "tfoot",
+          "label": "2"
+        }
+      ],
+      "clip": [
+        "text=Facturas de proveedores",
+        "tfoot"
+      ],
+      "margin": 20
+    },
+    {
+      "name": "05-datos-del-fichero-115",
+      "url": "Modelo115?codejercicio=2026&period=T1",
+      "highlight": [
+        {
+          "target": ".mk",
+          "nth": 0,
+          "label": "1",
+          "padding": 10
+        },
+        {
+          "target": ".mk",
+          "nth": 1,
+          "label": "2",
+          "padding": 10
+        },
+        {
+          "target": ".mk",
+          "nth": 2,
+          "label": "3",
+          "padding": 10
+        },
+        {
+          "target": ".mk",
+          "nth": 3,
+          "label": "4",
+          "padding": 10
+        }
+      ],
+      "clip": [
+        "text=Datos del fichero (.115)",
+        "text=Descargar fichero 115"
+      ],
+      "margin": 24,
+      "steps": [
+        {
+          "eval": "document.querySelectorAll('select[name=tipo115],input[name=iban115],input[name=justificante115],button[value=download]').forEach(e=>e.closest('.mb-3').classList.add('mk'))"
+        }
+      ]
+    },
+    {
+      "name": "06-avisos-al-descargar-el-fichero",
+      "url": "Modelo115?codejercicio=2026&period=T1&action=download",
+      "clip": [
+        "nav.navbar",
+        "text=Previsualizar"
+      ],
+      "margin": 24
+    },
+    {
+      "name": "07-periodo-sin-datos",
+      "url": "Modelo115?codejercicio=2026&period=T2",
+      "clip": [
+        "nav.navbar",
+        ".alert-warning"
+      ],
+      "margin": 24
+    }
+  ]
+}

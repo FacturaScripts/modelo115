@@ -1,0 +1,55 @@
+{
+    "User": {
+        "como-hacer-el-modelo-115.md": {
+            "title": "Cómo hacer el Modelo 115",
+            "title_short": "Modelo 115",
+            "permalink": "como-hacer-el-modelo-115",
+            "ordernum": 10,
+            "imageurl": "Doc/Assets/como-hacer-el-modelo-115/03-casillas-del-resumen.png",
+            "icon": "fa-solid fa-book",
+            "color": "primary",
+            "keywords": "modelo 115, retenciones alquileres, IRPF alquileres, arrendamientos, inmuebles urbanos, fichero 115, IRPFA, declaración trimestral",
+            "controllers": "Modelo115",
+            "visibility": true,
+            "idpublication": 1975
+        },
+        "como-hacer-el-modelo-180.md": {
+            "title": "Cómo hacer el Modelo 180",
+            "title_short": "Modelo 180",
+            "permalink": "como-hacer-el-modelo-180",
+            "ordernum": 20,
+            "imageurl": "Doc/Assets/como-hacer-el-modelo-180/02-perceptores-del-modelo-180.png",
+            "icon": "fa-solid fa-file-lines",
+            "color": "primary",
+            "keywords": "modelo 180, resumen anual retenciones alquileres, arrendador, inmueble, referencia catastral, fichero 180, declaración anual",
+            "controllers": "Modelo115",
+            "visibility": true,
+            "idpublication": 2574
+        },
+        "inmuebles-del-modelo-180.md": {
+            "title": "Inmuebles del Modelo 180",
+            "title_short": "Inmuebles del 180",
+            "permalink": "inmuebles-del-modelo-180",
+            "ordernum": 30,
+            "imageurl": "Doc/Assets/inmuebles-del-modelo-180/01-pestana-inmuebles-del-proveedor.png",
+            "icon": "fa-solid fa-building",
+            "color": "primary",
+            "keywords": "modelo 180, inmuebles, arrendadores, referencia catastral, situación del inmueble, tipo de vía INE, código de municipio, porcentaje de reparto, proveedor, alquileres",
+            "controllers": "EditProveedor,EditInmueble180,ListInmueble180",
+            "visibility": true
+        }
+    },
+    "Dev": {
+        "api-modelos-115-180.md": {
+            "title": "API REST de los modelos 115 y 180",
+            "title_short": "API modelos 115 y 180",
+            "permalink": "api-modelos-115-180",
+            "ordernum": 10,
+            "icon": "fa-solid fa-plug",
+            "color": "info",
+            "keywords": "api, rest, modelo 115, modelo 180, irpf, alquileres, aeat, inmuebles, arrendadores, token, curl, mcp",
+            "controllers": "ApiModelo115,ApiModelo180",
+            "visibility": true
+        }
+    }
+}
