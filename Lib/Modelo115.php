@@ -29,6 +29,13 @@ use FacturaScripts\Dinamic\Model\Retencion;
 use FacturaScripts\Dinamic\Model\Subcuenta;
 
 /**
+ * Calcula los datos del modelo 115 (retenciones e ingresos a cuenta de rendimientos procedentes del
+ * arrendamiento de inmuebles urbanos) y de su resumen anual, el modelo 180, a partir de las facturas de
+ * proveedor con retención de IRPF.
+ *
+ * Lo usan la pantalla del plugin, el fichero del modelo 115 (Modelo115File) y los endpoints de la API de los
+ * modelos 115 y 180, para que todos den las mismas cifras.
+ *
  * @author Carlos Garcia Gomez <carlos@facturascripts.com>
  * @author Daniel Fernández Giménez <contacto@danielfg.es>
  */
@@ -70,6 +77,34 @@ class Modelo115
     /** @var int */
     protected static $numrecipients = 0;
 
+    /** @var float suma del IVA de las facturas */
+    protected static $totalIva = 0.0;
+
+    /** @var float suma del IRPF de las facturas */
+    protected static $totalIrpf = 0.0;
+
+    /** @var float suma de la base imponible (neto) de las facturas */
+    protected static $totalNeto = 0.0;
+
+    /** @var float suma del recargo de equivalencia de las facturas */
+    protected static $totalRecargo = 0.0;
+
+    /** @var float suma del total de las facturas */
+    protected static $totalTotal = 0.0;
+
+    /**
+     * Calcula los datos del modelo 115 del ejercicio y periodo indicados.
+     *
+     * Todas las propiedades estáticas se reinician al empezar, por lo que se puede llamar varias veces en
+     * la misma petición sin que los importes se acumulen.
+     *
+     * @param string $codejercicio código del ejercicio
+     * @param string $period periodo: T1, T2, T3, T4 o ANNUAL (cualquier otro valor se trata como T1)
+     * @param string $codRetencion retención por la que filtrar las facturas (vacío = todas)
+     * @param float $todeduct importe a deducir de autoliquidaciones anteriores del mismo periodo
+     *
+     * @return array resultados del modelo o un array vacío si el ejercicio no existe
+     */
     public static function generate(string $codejercicio, string $period, string $codRetencion, float $todeduct = 0.0): array
     {
         // comprobamos que el ejercicio existe
@@ -78,11 +113,21 @@ class Modelo115
             return [];
         }
 
-        // inicializamos las variables
+        // inicializamos las variables, incluidos los acumuladores de una llamada anterior
         static::$codretencion = $codRetencion;
         static::$dataBase = new DataBase();
+        static::$invoices = [];
+        static::$numrecipients = 0;
         static::$period = strtoupper($period);
+        static::$result = 0.0;
+        static::$retentions = 0.0;
+        static::$taxbase = 0.0;
         static::$todeduct = $todeduct;
+        static::$totalIrpf = 0.0;
+        static::$totalIva = 0.0;
+        static::$totalNeto = 0.0;
+        static::$totalRecargo = 0.0;
+        static::$totalTotal = 0.0;
 
         // cargamos las fechas del periodo
         static::loadDates();
@@ -103,10 +148,32 @@ class Modelo115
             'retentions' => static::$retentions,
             'todeduct' => static::$todeduct,
             'result' => static::$result,
-            'numrecipients' => static::$numrecipients
+            'numrecipients' => static::$numrecipients,
+            'totalNeto' => static::$totalNeto,
+            'totalIva' => static::$totalIva,
+            'totalRecargo' => static::$totalRecargo,
+            'totalIrpf' => static::$totalIrpf,
+            'totalTotal' => static::$totalTotal,
         ];
     }
 
+    /**
+     * Indica si el ejercicio tiene subcuentas de retenciones de alquileres (cuenta especial IRPFA). Sin
+     * ellas no se pueden separar las facturas de alquileres de las de profesionales y el modelo incluye
+     * todas las facturas con IRPF.
+     *
+     * @param string $codejercicio código del ejercicio
+     *
+     * @return bool
+     */
+    public static function hasRentalSubaccounts(string $codejercicio): bool
+    {
+        return !empty(static::getSubcuentasIRPFA($codejercicio));
+    }
+
+    /**
+     * Calcula las fechas de inicio y fin del periodo del modelo (formato d-m-Y).
+     */
     protected static function loadDates(): void
     {
         // si el periodo no es T1, T2, T3, T4 o Annual, se asume que es el primer trimestre
@@ -142,6 +209,10 @@ class Modelo115
         }
     }
 
+    /**
+     * Carga las facturas de proveedor de la empresa del ejercicio con IRPF en el periodo, filtradas por la
+     * retención indicada y por las subcuentas de alquileres (IRPFA) si existen.
+     */
     protected static function loadInvoices(): void
     {
         $where = [
@@ -174,7 +245,7 @@ class Modelo115
      */
     protected static function filterRentalInvoices(array $invoices): array
     {
-        $ids = static::getSubcuentasIRPFA();
+        $ids = static::getSubcuentasIRPFA(static::$exercise->codejercicio);
         if (empty($ids)) {
             return $invoices;
         }
@@ -212,23 +283,25 @@ class Modelo115
     /**
      * Devuelve los IDs de las subcuentas de retenciones de alquileres (IRPFA) del ejercicio.
      *
+     * @param string $codejercicio código del ejercicio
+     *
      * @return array
      */
-    protected static function getSubcuentasIRPFA(): array
+    protected static function getSubcuentasIRPFA(string $codejercicio): array
     {
         $ids = [];
 
         // subcuentas de la cuenta con cuenta especial IRPFA
         $special = new CuentaEspecial();
         if ($special->loadWhere([Where::eq('codcuentaesp', 'IRPFA')])) {
-            foreach ($special->getCuenta(static::$exercise->codejercicio)->getSubcuentas() as $subcuenta) {
+            foreach ($special->getCuenta($codejercicio)->getSubcuentas() as $subcuenta) {
                 $ids[$subcuenta->id()] = $subcuenta->id();
             }
         }
 
         // subcuentas marcadas directamente con la cuenta especial IRPFA
         $where = [
-            Where::eq('codejercicio', static::$exercise->codejercicio),
+            Where::eq('codejercicio', $codejercicio),
             Where::eq('codcuentaesp', 'IRPFA'),
         ];
         foreach (Subcuenta::all($where) as $subcuenta) {
@@ -238,6 +311,10 @@ class Modelo115
         return $ids;
     }
 
+    /**
+     * Calcula las casillas del modelo (perceptores, base, retenciones y resultado) y los totales de las
+     * facturas (neto, IVA, recargo, IRPF y total).
+     */
     protected static function loadResults(): void
     {
         $recipients = [];
@@ -245,6 +322,13 @@ class Modelo115
             $recipients[$invoice->codproveedor] = $invoice->codproveedor;
             static::$taxbase += $invoice->neto;
             static::$retentions += $invoice->totalirpf;
+
+            // totales de las facturas
+            static::$totalNeto += $invoice->neto;
+            static::$totalIva += $invoice->totaliva;
+            static::$totalRecargo += $invoice->totalrecargo;
+            static::$totalIrpf += $invoice->totalirpf;
+            static::$totalTotal += $invoice->total;
         }
 
         static::$numrecipients = count($recipients);

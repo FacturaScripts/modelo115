@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ * Formulario de un inmueble arrendado del modelo 180: datos del registro de perceptor (situación,
+ * referencia catastral y dirección normalizada) y porcentaje de reparto de la base.
+ *
+ * @author Daniel Fernández Giménez <contacto@danielfg.es>
+-->
+<view>
+    <columns>
+        <group name="data" numcolumns="12">
+            <column name="id" display="none" order="100">
+                <widget type="text" fieldname="id"/>
+            </column>
+            <column name="supplier" numcolumns="4" order="110">
+                <widget type="select" fieldname="codproveedor" onclick="EditProveedor" readonly="dinamic" required="true">
+                    <values source="proveedores" fieldcode="codproveedor" fieldtitle="nombre"/>
+                </widget>
+            </column>
+            <column name="description" numcolumns="4" order="120">
+                <widget type="text" fieldname="descripcion" maxlength="100" icon="fa-solid fa-building"/>
+            </column>
+            <column name="model-180-split-percentage" description="model-180-split-percentage-p" numcolumns="4" order="130">
+                <widget type="percentage" fieldname="porcentaje" decimal="2" min="0" max="100"/>
+            </column>
+            <column name="model-180-situation" numcolumns="6" order="140">
+                <widget type="select" fieldname="situacion" required="true" translate="true">
+                    <values title="model-180-situation-1">1</values>
+                    <values title="model-180-situation-2">2</values>
+                    <values title="model-180-situation-3">3</values>
+                    <values title="model-180-situation-4">4</values>
+                </widget>
+            </column>
+            <column name="cadastral-reference" description="cadastral-reference-p" numcolumns="6" order="150">
+                <widget type="text" fieldname="refcatastral" maxlength="20" icon="fa-solid fa-map"/>
+            </column>
+        </group>
+        <group name="address" title="address" icon="fa-solid fa-map-marker-alt" numcolumns="12">
+            <column name="street-type" description="street-type-p" numcolumns="2" order="100">
+                <widget type="datalist" fieldname="tipovia" maxlength="5">
+                    <values title="CL - Calle">CL</values>
+                    <values title="AV - Avenida">AV</values>
+                    <values title="PZ - Plaza">PZ</values>
+                    <values title="PS - Paseo">PS</values>
+                    <values title="CR - Carretera">CR</values>
+                    <values title="CM - Camino">CM</values>
+                    <values title="TR - Travesía">TR</values>
+                    <values title="RD - Ronda">RD</values>
+                    <values title="GL - Glorieta">GL</values>
+                    <values title="PJ - Pasaje">PJ</values>
+                    <values title="UR - Urbanización">UR</values>
+                    <values title="PG - Polígono">PG</values>
+                    <values title="BO - Barrio">BO</values>
+                    <values title="LG - Lugar">LG</values>
+                    <values title="CJ - Callejón">CJ</values>
+                    <values title="RB - Rambla">RB</values>
+                </widget>
+            </column>
+            <column name="street-name" numcolumns="6" order="110">
+                <widget type="text" fieldname="nombrevia" maxlength="50"/>
+            </column>
+            <column name="numbering-type" numcolumns="2" order="120">
+                <widget type="select" fieldname="tiponumeracion">
+                    <values title="NUM">NUM</values>
+                    <values title="KM.">KM.</values>
+                    <values title="S/N">S/N</values>
+                </widget>
+            </column>
+            <column name="number" numcolumns="2" order="130">
+                <widget type="text" fieldname="numero" maxlength="5"/>
+            </column>
+            <column name="number-qualifier" description="number-qualifier-p" numcolumns="2" order="140">
+                <widget type="text" fieldname="calificador" maxlength="3"/>
+            </column>
+            <column name="block" numcolumns="2" order="150">
+                <widget type="text" fieldname="bloque" maxlength="3"/>
+            </column>
+            <column name="doorway" numcolumns="2" order="160">
+                <widget type="text" fieldname="portal" maxlength="3"/>
+            </column>
+            <column name="stairs" numcolumns="2" order="170">
+                <widget type="text" fieldname="escalera" maxlength="3"/>
+            </column>
+            <column name="floor" numcolumns="2" order="180">
+                <widget type="text" fieldname="planta" maxlength="3"/>
+            </column>
+            <column name="door" numcolumns="2" order="190">
+                <widget type="text" fieldname="puerta" maxlength="3"/>
+            </column>
+            <column name="address-complement" description="address-complement-p" numcolumns="12" order="200">
+                <widget type="text" fieldname="complemento" maxlength="40"/>
+            </column>
+            <column name="locality" description="locality-p" numcolumns="4" order="210">
+                <widget type="text" fieldname="localidad" maxlength="30"/>
+            </column>
+            <column name="municipality" numcolumns="4" order="220">
+                <widget type="text" fieldname="municipio" maxlength="30"/>
+            </column>
+            <column name="municipality-code" description="municipality-code-p" numcolumns="2" order="230">
+                <widget type="text" fieldname="codmunicipio" maxlength="5"/>
+            </column>
+            <column name="zip-code" numcolumns="2" order="240">
+                <widget type="text" fieldname="codpostal" maxlength="5"/>
+            </column>
+            <column name="province-code" description="province-code-p" numcolumns="2" order="250">
+                <widget type="text" fieldname="codprovincia" maxlength="2"/>
+            </column>
+        </group>
+        <group name="logs" numcolumns="12">
+            <column name="creation-date" order="100">
+                <widget type="datetime" fieldname="creation_date" readonly="true"/>
+            </column>
+            <column name="last-update" order="110">
+                <widget type="datetime" fieldname="last_update" readonly="true"/>
+            </column>
+        </group>
+    </columns>
+</view>

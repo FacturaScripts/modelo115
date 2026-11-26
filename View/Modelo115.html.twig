@@ -135,6 +135,11 @@
                         </div>
                     </div>
                 </div>
+                {% if fsc.isAnnual() %}
+                    {{ include('Block/Modelo180.html.twig') }}
+                {% else %}
+                    {{ include('Block/Modelo115File.html.twig') }}
+                {% endif %}
                 <div class="row">
                     <div class="col">
                         <h3 class="h4 mt-3">

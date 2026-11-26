@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ * Inmueble arrendado del modelo 180 al que corresponde el documento de compra (opcional).
+ *
+ * @author Daniel Fernández Giménez <contacto@danielfg.es>
+-->
+<table>
+    <column>
+        <name>idinmueble180</name>
+        <type>integer</type>
+    </column>
+    <constraint>
+        <name>ca_albaranesprov_modelo180_inmuebles</name>
+        <type>FOREIGN KEY (idinmueble180) REFERENCES modelo180_inmuebles (id) ON DELETE SET NULL ON UPDATE CASCADE</type>
+    </constraint>
+</table>

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ * Listado de los inmuebles arrendados del modelo 180 de un proveedor (pestaña de su ficha).
+ *
+ * @author Daniel Fernández Giménez <contacto@danielfg.es>
+-->
+<view>
+    <columns>
+        <column name="id" display="none" order="100">
+            <widget type="text" fieldname="id" onclick="EditInmueble180"/>
+        </column>
+        <column name="description" order="110">
+            <widget type="text" fieldname="descripcion" onclick="EditInmueble180"/>
+        </column>
+        <column name="model-180-situation" order="120">
+            <widget type="select" fieldname="situacion" translate="true">
+                <values title="model-180-situation-1">1</values>
+                <values title="model-180-situation-2">2</values>
+                <values title="model-180-situation-3">3</values>
+                <values title="model-180-situation-4">4</values>
+            </widget>
+        </column>
+        <column name="cadastral-reference" order="130">
+            <widget type="text" fieldname="refcatastral"/>
+        </column>
+        <column name="street-type" order="140">
+            <widget type="text" fieldname="tipovia"/>
+        </column>
+        <column name="street-name" order="150">
+            <widget type="text" fieldname="nombrevia"/>
+        </column>
+        <column name="number" order="160">
+            <widget type="text" fieldname="numero"/>
+        </column>
+        <column name="municipality" order="170">
+            <widget type="text" fieldname="municipio"/>
+        </column>
+        <column name="zip-code" order="180">
+            <widget type="text" fieldname="codpostal"/>
+        </column>
+        <column name="model-180-split-percentage" display="right" order="190">
+            <widget type="percentage" fieldname="porcentaje"/>
+        </column>
+    </columns>
+</view>

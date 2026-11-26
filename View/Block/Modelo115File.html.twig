@@ -1,0 +1,45 @@
+{#
+ # Sección del fichero del modelo 115 (trimestres) de la pantalla Modelo115: tipo de declaración, IBAN para la
+ # domiciliación, justificante de la declaración anterior (complementarias) y botón de descarga del fichero.
+ #
+ # @author Daniel Fernández Giménez <contacto@danielfg.es>
+ #}
+<div class="row">
+    <div class="col">
+        <h3 class="h4 mt-3">
+            <i class="fa-solid fa-file fa-fw"></i> {{ trans('m115-file-options') }}
+        </h3>
+    </div>
+</div>
+<div class="row g-2 align-items-end">
+    <div class="col-sm-6 col-md-4 col-lg-3">
+        <div class="mb-3">
+            {{ trans('m115-declaration-type') }}
+            <select name="tipo115" class="form-select">
+                {% for value in ['', 'I', 'U', 'G', 'N'] %}
+                    <option value="{{ value }}"{{ fsc.options115.tipo == value ? ' selected' : '' }}>{{ trans('m115-type-' ~ (value ?: 'auto')|lower) }}</option>
+                {% endfor %}
+            </select>
+        </div>
+    </div>
+    <div class="col-sm-6 col-md-4 col-lg-3">
+        <div class="mb-3">
+            {{ trans('m115-iban') }}
+            <input type="text" name="iban115" value="{{ fsc.options115.iban }}" maxlength="34" class="form-control"/>
+        </div>
+    </div>
+    <div class="col-sm-6 col-md-4 col-lg-3">
+        <div class="mb-3">
+            {{ trans('m115-previous-receipt') }}
+            <input type="text" name="justificante115" value="{{ fsc.options115.justificante }}" maxlength="13"
+                   class="form-control"/>
+        </div>
+    </div>
+    <div class="col-sm-6 col-md-4 col-lg-3">
+        <div class="mb-3">
+            <button type="submit" name="action" value="download" class="btn btn-success w-100">
+                <i class="fa-solid fa-download me-1"></i> {{ trans('m115-download') }}
+            </button>
+        </div>
+    </div>
+</div>

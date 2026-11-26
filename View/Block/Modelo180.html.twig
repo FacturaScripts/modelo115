@@ -1,0 +1,118 @@
+{#
+ # Sección del modelo 180 (periodo anual) de la pantalla Modelo115: avisos, registros de perceptor por
+ # arrendador e inmueble, datos del registro de tipo 1 y botón de descarga del fichero.
+ #
+ # @author Daniel Fernández Giménez <contacto@danielfg.es>
+ #}
+<div class="row">
+    <div class="col">
+        <h3 class="h4 mt-3">
+            <i class="fa-solid fa-building fa-fw"></i> {{ trans('model-180-recipients') }}
+        </h3>
+        <p class="text-muted">{{ trans('model-180-recipients-p') }}</p>
+        {% for warning in fsc.result180.warnings %}
+            <div class="alert alert-warning py-2 mb-2">
+                <i class="fa-solid fa-triangle-exclamation fa-fw me-1"></i> {{ trans(warning.key, warning.params) }}
+            </div>
+        {% endfor %}
+        <div class="table-responsive">
+            <table class="table table-hover table-sm">
+                <thead>
+                <tr>
+                    <th>{{ trans('cifnif') }}</th>
+                    <th>{{ trans('supplier') }}</th>
+                    <th class="text-center">{{ trans('province') }}</th>
+                    <th>{{ trans('model-180-property') }}</th>
+                    <th class="text-center">{{ trans('model-180-situation') }}</th>
+                    <th>{{ trans('cadastral-reference') }}</th>
+                    <th class="text-end">{{ trans('tax-base') }}</th>
+                    <th class="text-end">%</th>
+                    <th class="text-end">{{ trans('retention') }}</th>
+                    <th class="text-end">{{ trans('invoices') }}</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for record in fsc.result180.records %}
+                    <tr>
+                        <td>{{ record.cifnif }}</td>
+                        <td>
+                            <a href="EditProveedor?code={{ record.codproveedor | url_encode }}&activetab=ListInmueble180">{{ record.nombre | raw }}</a>
+                        </td>
+                        <td class="text-center">{{ record.codprovincia }}</td>
+                        <td>
+                            {% if record.idinmueble %}
+                                <a href="EditInmueble180?code={{ record.idinmueble }}">{{ record.inmueble | raw }}</a>
+                            {% else %}
+                                <span class="text-danger">{{ trans('model-180-without-property') }}</span>
+                            {% endif %}
+                            {% if record.reparto %}
+                                <span class="badge bg-info ms-1" title="{{ trans('model-180-split-p') }}">{{ trans('model-180-split-badge') }}</span>
+                            {% endif %}
+                        </td>
+                        <td class="text-center">{{ record.situacion }}</td>
+                        <td>{{ record.refcatastral }}</td>
+                        <td class="text-end">{{ money(record.base) }}</td>
+                        <td class="text-end">{{ number(record.porcentaje) }}</td>
+                        <td class="text-end">{{ money(record.retenciones) }}</td>
+                        <td class="text-end" title="{{ record.facturas | join(', ') }}">{{ record.numfacturas }}</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+                <tfoot>
+                <tr class="table-active fw-bold">
+                    <td></td>
+                    <td>{{ trans('totals') }} ({{ fsc.result180.numrecords }})</td>
+                    <td colspan="4"></td>
+                    <td class="text-end">{{ money(fsc.result180.taxbase) }}</td>
+                    <td></td>
+                    <td class="text-end">{{ money(fsc.result180.retentions) }}</td>
+                    <td></td>
+                </tr>
+                </tfoot>
+            </table>
+        </div>
+    </div>
+</div>
+<div class="row g-2 align-items-end">
+    <div class="col-sm-6 col-md-4 col-lg-2">
+        <div class="mb-3">
+            <span title="{{ trans('model-180-receipt-p') }}">{{ trans('model-180-receipt') }}</span>
+            <input type="text" name="receipt" value="{{ fsc.receipt }}" maxlength="13" class="form-control" required/>
+        </div>
+    </div>
+    <div class="col-sm-6 col-md-4 col-lg-2">
+        <div class="mb-3">
+            {{ trans('model-180-declaration-type') }}
+            <select name="declarationtype" class="form-select">
+                <option value="" {{ fsc.declarationType == '' ? 'selected' : '' }}>{{ trans('model-180-declaration-normal') }}</option>
+                <option value="C" {{ fsc.declarationType == 'C' ? 'selected' : '' }}>{{ trans('model-180-declaration-complementary') }}</option>
+                <option value="S" {{ fsc.declarationType == 'S' ? 'selected' : '' }}>{{ trans('model-180-declaration-substitute') }}</option>
+            </select>
+        </div>
+    </div>
+    <div class="col-sm-6 col-md-4 col-lg-2">
+        <div class="mb-3">
+            <span title="{{ trans('model-180-previous-receipt-p') }}">{{ trans('model-180-previous-receipt') }}</span>
+            <input type="text" name="previousreceipt" value="{{ fsc.previousReceipt }}" maxlength="13" class="form-control"/>
+        </div>
+    </div>
+    <div class="col-sm-6 col-md-4 col-lg-2">
+        <div class="mb-3">
+            {{ trans('phone') }}
+            <input type="text" name="phone" value="{{ fsc.phone }}" maxlength="9" class="form-control"/>
+        </div>
+    </div>
+    <div class="col-sm-6 col-md-4 col-lg-2">
+        <div class="mb-3">
+            <span title="{{ trans('model-180-contact-p') }}">{{ trans('contact') }}</span>
+            <input type="text" name="contact" value="{{ fsc.contact }}" maxlength="40" class="form-control"/>
+        </div>
+    </div>
+    <div class="col-sm-6 col-md-4 col-lg-2">
+        <div class="mb-3">
+            <button type="submit" name="action" value="download-180" class="btn btn-success w-100">
+                <i class="fa-solid fa-download me-1"></i> {{ trans('model-180-download') }}
+            </button>
+        </div>
+    </div>
+</div>

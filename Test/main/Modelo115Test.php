@@ -19,11 +19,7 @@
 
 namespace FacturaScripts\Test\Plugins;
 
-use FacturaScripts\Core\Lib\Calculator;
-use FacturaScripts\Core\Tools;
-use FacturaScripts\Dinamic\Model\Ejercicio;
 use FacturaScripts\Dinamic\Model\FacturaProveedor;
-use FacturaScripts\Dinamic\Model\Proveedor;
 use FacturaScripts\Dinamic\Model\Retencion;
 use FacturaScripts\Dinamic\Model\Subcuenta;
 use FacturaScripts\Plugins\Modelo115\Lib\Modelo115;
@@ -236,53 +232,60 @@ final class Modelo115Test extends Modelo115TestCase
         $this->assertSame('31-03-' . $year, $result['dateEnd']);
     }
 
-    private function createSupplierInvoice(float $net, float $irpf, ?Proveedor $supplier = null): FacturaProveedor
+    /**
+     * Dos llamadas seguidas en la misma petición deben dar los mismos importes: las propiedades estáticas
+     * de la Lib se reinician al empezar generate() y no se acumulan (antes el anual salía el doble).
+     */
+    public function testGenerateNoAcumula(): void
     {
-        if (null === $supplier) {
-            $supplier = new Proveedor();
-            $supplier->cifnif = mt_rand(1, 99999999) . 'J';
-            $supplier->nombre = 'Arrendador ' . mt_rand(1, 999);
-            $this->assertTrue($supplier->save());
-            $this->addCleanup(static function () use ($supplier) {
-                $supplier->delete();
-            });
+        $exercise = $this->getCurrentExercise();
+        $this->createSupplierInvoice(1000.0, 19.0);
+
+        $first = Modelo115::generate($exercise->codejercicio, 'ANNUAL', '');
+        $second = Modelo115::generate($exercise->codejercicio, 'ANNUAL', '');
+        $this->assertGreaterThan(0.0, $first['taxbase']);
+
+        $this->assertEqualsWithDelta($first['taxbase'], $second['taxbase'], 0.001);
+        $this->assertEqualsWithDelta($first['retentions'], $second['retentions'], 0.001);
+        $this->assertEqualsWithDelta($first['result'], $second['result'], 0.001);
+        $this->assertSame($first['numrecipients'], $second['numrecipients']);
+        $this->assertCount(count($first['invoices']), $second['invoices']);
+        $this->assertEqualsWithDelta($first['totalNeto'], $second['totalNeto'], 0.001);
+        $this->assertEqualsWithDelta($first['totalTotal'], $second['totalTotal'], 0.001);
+
+        // un trimestre calculado antes del anual tampoco debe sumarse al anual
+        Modelo115::generate($exercise->codejercicio, $this->getCurrentPeriod(), '');
+        $third = Modelo115::generate($exercise->codejercicio, 'ANNUAL', '');
+        $this->assertEqualsWithDelta($first['taxbase'], $third['taxbase'], 0.001);
+        $this->assertEqualsWithDelta($first['retentions'], $third['retentions'], 0.001);
+    }
+
+    /**
+     * La Lib calcula los totales de las facturas (neto, IVA, recargo, IRPF y total) que muestra la pantalla.
+     */
+    public function testTotalesFacturas(): void
+    {
+        $exercise = $this->getCurrentExercise();
+        $this->createSupplierInvoice(1000.0, 19.0);
+        $this->createSupplierInvoice(500.0, 19.0);
+
+        $result = Modelo115::generate($exercise->codejercicio, $this->getCurrentPeriod(), '');
+        $this->assertNotEmpty($result['invoices']);
+
+        $neto = $iva = $recargo = $irpf = $total = 0.0;
+        foreach ($result['invoices'] as $invoice) {
+            $neto += $invoice->neto;
+            $iva += $invoice->totaliva;
+            $recargo += $invoice->totalrecargo;
+            $irpf += $invoice->totalirpf;
+            $total += $invoice->total;
         }
 
-        $invoice = new FacturaProveedor();
-        $invoice->setSubject($supplier);
-        $invoice->setDate(Tools::date(), $invoice->hora);
-        $this->assertTrue($invoice->save());
-        $this->addCleanup(static function () use ($invoice) {
-            if ($invoice->exists()) {
-                $invoice->delete();
-            }
-        });
-
-        $line = $invoice->getNewLine();
-        $line->cantidad = 1;
-        $line->descripcion = 'Alquiler local';
-        $line->pvpunitario = $net;
-        $line->irpf = $irpf;
-        $this->assertTrue($line->save());
-
-        $lines = $invoice->getLines();
-        $this->assertTrue(Calculator::calculate($invoice, $lines, true));
-        $this->assertEqualsWithDelta($net, $invoice->neto, 0.001);
-        $this->assertEqualsWithDelta($net * $irpf / 100, $invoice->totalirpf, 0.001);
-
-        return $invoice;
-    }
-
-    private function getCurrentExercise(): Ejercicio
-    {
-        $exercise = new Ejercicio();
-        $exercise->idempresa = Tools::settings('default', 'idempresa');
-        $this->assertTrue($exercise->loadFromDate(Tools::date()));
-        return $exercise;
-    }
-
-    private function getCurrentPeriod(): string
-    {
-        return 'T' . ceil((int)date('n') / 3);
+        $this->assertEqualsWithDelta($neto, $result['totalNeto'], 0.001);
+        $this->assertEqualsWithDelta($iva, $result['totalIva'], 0.001);
+        $this->assertEqualsWithDelta($recargo, $result['totalRecargo'], 0.001);
+        $this->assertEqualsWithDelta($irpf, $result['totalIrpf'], 0.001);
+        $this->assertEqualsWithDelta($total, $result['totalTotal'], 0.001);
+        $this->assertEqualsWithDelta($result['retentions'], $result['totalIrpf'], 0.001);
     }
 }
