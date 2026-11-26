@@ -11,7 +11,37 @@
             "keywords": "modelo 115, retenciones alquileres, IRPF alquileres, arrendamientos, inmuebles urbanos, fichero 115, IRPFA, declaración trimestral",
             "controllers": "Modelo115",
             "visibility": true,
-            "idpublication": 1975
+            "idpublication": 1975,
+            "assets": {
+                "Assets/como-hacer-el-modelo-115/01-menu-modelo-115-y-180.png": {
+                    "url": "/MyFiles/2026/11/8477_forja_m5wvmvq348_01_menu_modelo_115_y_180.png?myft=ac4052345e2efd58cebb248af0ebfc9aff0775fd91250e4edce4be286b185d0c",
+                    "sha256": "1c39d7730c76cad9d6fb572029749888c99bacda47a3ae43f25039cc55ba88de"
+                },
+                "Assets/como-hacer-el-modelo-115/02-ejercicio-periodo-y-retencion.png": {
+                    "url": "/MyFiles/2026/11/8478_forja_ptkm6ekwxa_02_ejercicio_periodo_y_retencion.png?myft=92c3ec72d526f78064a4ade1644e8290a1d1794d74ff7fac02f47418511b7590",
+                    "sha256": "e9f88f937da358738371b14f0cac7975fbd2d0a6f4b35e945656b0a5352992a3"
+                },
+                "Assets/como-hacer-el-modelo-115/07-periodo-sin-datos.png": {
+                    "url": "/MyFiles/2026/11/8479_forja_xs2tpxqere_07_periodo_sin_datos.png?myft=a876e68fa3b8afa6a1816cc9e74dc5b1b5690735283d85a29b83ca3ef2dc6a28",
+                    "sha256": "f8574938c3d8414685dc5350fb6e0a80274ba3a4df54db94120bd568e6289a23"
+                },
+                "Assets/como-hacer-el-modelo-115/03-casillas-del-resumen.png": {
+                    "url": "/MyFiles/2026/11/8480_forja_tmqnjtxybf_03_casillas_del_resumen.png?myft=09687df4aecca5dc85df62f89fddd38e43294a50f44a76bfcca6663179e6a49f",
+                    "sha256": "c976bfd2bb90dc432a6e2655bb54e74b9f7187f22311ac232db276b8c3188876"
+                },
+                "Assets/como-hacer-el-modelo-115/04-facturas-y-totales.png": {
+                    "url": "/MyFiles/2026/11/8481_forja_p9tbqgbzd7_04_facturas_y_totales.png?myft=48942140f302b89e14b9cc223b645ee95c80660859d1a5651aaacbb3ab6ed27e",
+                    "sha256": "647c9ac77870c51ad37aaf2c7405258b8e67f19e485d14a6854d714ce9dd5971"
+                },
+                "Assets/como-hacer-el-modelo-115/05-datos-del-fichero-115.png": {
+                    "url": "/MyFiles/2026/11/8482_forja_iiikvqkrcc_05_datos_del_fichero_115.png?myft=cfb9180f2788b17d986db47e18d1bde6224c38dd63548bd3796938a04d1aa895",
+                    "sha256": "7cd4bc46a5c147ec6afb85a35f37105202ba1e3712a39b61f8a5c52220f34f99"
+                },
+                "Assets/como-hacer-el-modelo-115/06-avisos-al-descargar-el-fichero.png": {
+                    "url": "/MyFiles/2026/11/8483_forja_rjg8d0x0hk_06_avisos_al_descargar_el_fichero.png?myft=aab0965e3b0cb4efd38632aee2209a2f432a812c4ce56a7dd4275da3ed675ab3",
+                    "sha256": "b7a31a6505dfd0e23badd85b6faa948a6a348711f8dd17cd598b516b28bd2c87"
+                }
+            }
         },
         "como-hacer-el-modelo-180.md": {
             "title": "Cómo hacer el Modelo 180",
@@ -24,7 +54,25 @@
             "keywords": "modelo 180, resumen anual retenciones alquileres, arrendador, inmueble, referencia catastral, fichero 180, declaración anual",
             "controllers": "Modelo115",
             "visibility": true,
-            "idpublication": 2574
+            "idpublication": 2574,
+            "assets": {
+                "Assets/como-hacer-el-modelo-180/01-periodo-anual.png": {
+                    "url": "/MyFiles/2026/11/8484_forja_pplixhdbwy_01_periodo_anual.png?myft=f7020c33303df43e074df250ee3db1aa9db406b2a8c307416cc3682712447b08",
+                    "sha256": "417b164c0860552c370d846fa41fb55c6a936fb8a48bc47e932102ae855e71f2"
+                },
+                "Assets/como-hacer-el-modelo-180/02-perceptores-del-modelo-180.png": {
+                    "url": "/MyFiles/2026/11/8485_forja_urezetdt85_02_perceptores_del_modelo_180.png?myft=00260f861a0b09a607478c991ab40653040d838468a696642bf73e2225009f43",
+                    "sha256": "698b06cef180516ff6260ffc4b07d380e4b3cc4b5aeeadd2b239a9264e12e82d"
+                },
+                "Assets/como-hacer-el-modelo-180/03-datos-de-la-declaracion-180.png": {
+                    "url": "/MyFiles/2026/11/8486_forja_jtr3xv37cf_03_datos_de_la_declaracion_180.png?myft=2f3664a341e350a399967e85e391239b707b5f3db297f75ca407ac301dd70011",
+                    "sha256": "02b20eea73ee132bb3f326d845020bbf25f8a320c2d78fe15481c035f06d3a7f"
+                },
+                "Assets/como-hacer-el-modelo-180/04-aviso-numero-de-declaracion.png": {
+                    "url": "/MyFiles/2026/11/8487_forja_b0cwknjiy6_04_aviso_numero_de_declaracion.png?myft=74f79d6b3dfb4a37454b95129978cb6fff7fbb18bd969762d5cf2ee32850c1cf",
+                    "sha256": "9919b5000fa55ab75869837048039b583795128781b31116336f5893ae1f9637"
+                }
+            }
         },
         "inmuebles-del-modelo-180.md": {
             "title": "Inmuebles del Modelo 180",
@@ -36,7 +84,26 @@
             "color": "primary",
             "keywords": "modelo 180, inmuebles, arrendadores, referencia catastral, situación del inmueble, tipo de vía INE, código de municipio, porcentaje de reparto, proveedor, alquileres",
             "controllers": "EditProveedor,EditInmueble180,ListInmueble180",
-            "visibility": true
+            "visibility": true,
+            "idpublication": 5103,
+            "assets": {
+                "Assets/inmuebles-del-modelo-180/01-pestana-inmuebles-del-proveedor.png": {
+                    "url": "/MyFiles/2026/11/8488_forja_n3erqg2gy7_01_pestana_inmuebles_del_proveedor.png?myft=991c45c501733851e7c324d42406260360e0306c4d9faff66fdb5ff4b1b6bbb5",
+                    "sha256": "cb0dd2d54f36472e2ad4d3996f3137718d1c716f86cacbefb07e5b74bd1e1eeb"
+                },
+                "Assets/inmuebles-del-modelo-180/02-ficha-del-inmueble.png": {
+                    "url": "/MyFiles/2026/11/8489_forja_b4kmnw99bd_02_ficha_del_inmueble.png?myft=3f40bb8b29bc010602318ad6eb18d2ae197d9bc4527513edc34d2331ffb8c7b4",
+                    "sha256": "2f44e2ae201c2c605d5ce8d1449f4d194af056228c87d4008e59775979a550f2"
+                },
+                "Assets/inmuebles-del-modelo-180/03-direccion-del-inmueble.png": {
+                    "url": "/MyFiles/2026/11/8490_forja_dy4agwq79n_03_direccion_del_inmueble.png?myft=bb5241c0dbd55cac60d862e045beb14329c34e46f1b151a21c6ad2f6c2f21419",
+                    "sha256": "c173e8b8ecc71b6646d3b906122c5129cb044dab034957744e05a1824fb699fa"
+                },
+                "Assets/inmuebles-del-modelo-180/04-selector-de-inmueble-en-el-detalle.png": {
+                    "url": "/MyFiles/2026/11/8491_forja_uo7vyx69qx_04_selector_de_inmueble_en_el_detalle.png?myft=564fe567a4f0fb4667757eeb9ff80129d0020ab7eb437b1e84f76ebd569619c4",
+                    "sha256": "0d0ffc4854467b087ded25cc7727dabb9ca03d0f245f8fe27a9940a2f4afe8b5"
+                }
+            }
         }
     },
     "Dev": {
@@ -49,7 +116,8 @@
             "color": "info",
             "keywords": "api, rest, modelo 115, modelo 180, irpf, alquileres, aeat, inmuebles, arrendadores, token, curl, mcp",
             "controllers": "ApiModelo115,ApiModelo180",
-            "visibility": true
+            "visibility": true,
+            "idpublication": 5104
         }
     }
 }
