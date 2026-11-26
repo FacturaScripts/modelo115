@@ -42,6 +42,18 @@ use FacturaScripts\Dinamic\Model\Proveedor;
  */
 class Modelo180
 {
+    /**
+     * Avisos que impiden generar el fichero: datos obligatorios del registro de perceptor (NIF, provincia
+     * española y datos del inmueble) que la AEAT rechazaría. El resto de avisos (base negativa, repartos,
+     * proveedores sin inmuebles o facturas con un inmueble de otro proveedor) solo informan.
+     */
+    const BLOCKING_WARNINGS = [
+        'model-180-foreign-supplier',
+        'model-180-property-missing-data',
+        'model-180-supplier-without-nif',
+        'model-180-supplier-without-province',
+    ];
+
     /** Modalidad de la percepción: dineraria. */
     const MODALIDAD_DINERARIA = 1;
 
@@ -113,6 +125,21 @@ class Modelo180
 
     /** @var array avisos: cada uno con su clave de traducción (key) y parámetros (params), sin repetir */
     protected static $warnings = [];
+
+    /**
+     * Devuelve los avisos de Modelo180::build() que impiden generar el fichero (ver BLOCKING_WARNINGS).
+     *
+     * @param array $warnings avisos de build(), cada uno con su clave (key) y parámetros (params)
+     *
+     * @return array los avisos que bloquean, con el mismo formato
+     */
+    public static function blockingWarnings(array $warnings): array
+    {
+        return array_values(array_filter(
+            $warnings,
+            static fn(array $warning) => in_array($warning['key'] ?? '', static::BLOCKING_WARNINGS, true)
+        ));
+    }
 
     /**
      * Agrupa las facturas por arrendador e inmueble y devuelve los registros de perceptor del 180.
@@ -241,6 +268,7 @@ class Modelo180
 
             static::$records[$key]['base'] += $shareBase;
             static::$records[$key]['retenciones'] += $shareRetention;
+            // si en el año hay varios porcentajes, la AEAT pide solo el último: las facturas llegan por fecha
             static::$records[$key]['porcentaje'] = (float)$invoice->irpf;
             static::$records[$key]['numfacturas']++;
             static::$records[$key]['facturas'][] = (string)$invoice->codigo;

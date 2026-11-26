@@ -97,6 +97,12 @@ class Modelo115 extends Controller
         return $list;
     }
 
+    /**
+     * Devuelve los periodos del selector (T1-T4 y ANNUAL, el resumen anual del modelo 180) con su clave de
+     * traducción.
+     *
+     * @return array
+     */
     public function allPeriods(): array
     {
         return [
@@ -108,11 +114,21 @@ class Modelo115 extends Controller
         ];
     }
 
+    /**
+     * Devuelve las retenciones por las que se puede filtrar las facturas, ordenadas por descripción.
+     *
+     * @return Retencion[]
+     */
     public function allRetentions(): array
     {
         return Retencion::all([], ['descripcion' => 'ASC']);
     }
 
+    /**
+     * Datos de la página: menú Informes, submenú de modelos fiscales.
+     *
+     * @return array
+     */
     public function getPageData(): array
     {
         $data = parent::getPageData();
@@ -185,6 +201,16 @@ class Modelo115 extends Controller
             return;
         }
 
+        // los datos obligatorios de los perceptores y los inmuebles que falten impiden generar el fichero
+        $blocking = Modelo180::blockingWarnings($this->result180['warnings'] ?? []);
+        if (!empty($blocking)) {
+            foreach ($blocking as $warning) {
+                Tools::log()->warning($warning['key'], $warning['params']);
+            }
+            Tools::log()->warning('model-180-fix-before-download');
+            return;
+        }
+
         $company = new Empresa();
         $company->load($this->result['exercise']->idempresa);
         $year = (int)date('Y', strtotime($this->result['exercise']->fechainicio));
@@ -239,6 +265,11 @@ class Modelo115 extends Controller
             ->setContent($content);
     }
 
+    /**
+     * Devuelve el trimestre (T1-T4) en el que cae la fecha actual, el periodo por defecto de la pantalla.
+     *
+     * @return string
+     */
     protected function getCurrentPeriod(): string
     {
         // obtenemos el número del trimestre en el que se encuentra la fecha actual
@@ -285,6 +316,10 @@ class Modelo115 extends Controller
         ];
     }
 
+    /**
+     * Exporta a PDF el resumen del modelo, los perceptores del 180 (solo en el periodo anual) y las facturas
+     * con sus totales.
+     */
     protected function printAction(): void
     {
         if (empty($this->result)) {

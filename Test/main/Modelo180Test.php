@@ -38,6 +38,40 @@ use FacturaScripts\Plugins\Modelo115\Mod\PurchasesHeaderHTMLMod;
 final class Modelo180Test extends Modelo115TestCase
 {
     /**
+     * Solo bloquean la descarga del fichero los avisos de datos obligatorios (NIF, provincia, extranjero e
+     * inmueble incompleto); los repartos, las bases negativas y los proveedores sin inmuebles solo informan.
+     */
+    public function testAvisosQueBloquean(): void
+    {
+        $warnings = [
+            ['key' => 'model-180-supplier-without-nif', 'params' => ['%name%' => 'A']],
+            ['key' => 'model-180-split', 'params' => ['%name%' => 'B', '%count%' => 2]],
+            ['key' => 'model-180-supplier-without-province', 'params' => ['%name%' => 'C']],
+            ['key' => 'model-180-negative-base', 'params' => ['%name%' => 'D']],
+            ['key' => 'model-180-foreign-supplier', 'params' => ['%name%' => 'E']],
+            ['key' => 'model-180-supplier-without-property', 'params' => ['%name%' => 'F']],
+            ['key' => 'model-180-property-missing-data', 'params' => ['%name%' => 'G']],
+            ['key' => 'model-180-invoice-other-property', 'params' => ['%code%' => 'H']],
+        ];
+
+        $blocking = Modelo180::blockingWarnings($warnings);
+        $this->assertSame(
+            ['model-180-supplier-without-nif', 'model-180-supplier-without-province', 'model-180-foreign-supplier',
+                'model-180-property-missing-data'],
+            array_column($blocking, 'key')
+        );
+        $this->assertSame([], Modelo180::blockingWarnings([]));
+
+        // un proveedor sin inmuebles se declara en situación 4: no bloquea
+        $invoice = $this->createSupplierInvoice(1000.0, 19.0);
+        $result = Modelo180::build([$invoice]);
+        $this->assertNotContains(
+            'model-180-supplier-without-property',
+            array_column(Modelo180::blockingWarnings($result['warnings']), 'key')
+        );
+    }
+
+    /**
      * Códigos de provincia: del código postal (387xx es La Palma) o del nombre.
      */
     public function testCodigoProvincia(): void
@@ -213,6 +247,37 @@ final class Modelo180Test extends Modelo115TestCase
     }
 
     /**
+     * Selector de inmueble de la cabecera de compras: solo con inmuebles del proveedor, guarda el elegido y
+     * lo quita si es de otro proveedor.
+     */
+    public function testModCabeceraCompras(): void
+    {
+        $mod = new PurchasesHeaderHTMLMod();
+        $invoice = $this->createSupplierInvoice(100.0, 19.0);
+        $this->assertSame('', $mod->renderField($invoice, 'inmueble180'), 'sin inmuebles no hay selector');
+        $this->assertNull($mod->renderField($invoice, 'otro-campo'));
+
+        $property = $this->createProperty($invoice->getSubject(), ['descripcion' => 'Local centro']);
+        $html = $mod->renderField($invoice, 'inmueble180');
+        $this->assertStringContainsString('name="idinmueble180"', $html);
+        $this->assertStringContainsString('value="' . $property->id . '"', $html);
+        $this->assertStringContainsString('Local centro', $html);
+
+        // guarda el inmueble del formulario y no lo toca si el formulario no lo trae
+        $mod->applyBefore($invoice, ['idinmueble180' => (string)$property->id]);
+        $mod->apply($invoice, []);
+        $this->assertSame((int)$property->id, (int)$invoice->idinmueble180);
+        $mod->applyBefore($invoice, []);
+        $this->assertSame((int)$property->id, (int)$invoice->idinmueble180);
+
+        // un inmueble de otro proveedor se quita
+        $other = $this->createProperty($this->createSupplierInvoice(100.0, 19.0)->getSubject());
+        $mod->applyBefore($invoice, ['idinmueble180' => (string)$other->id]);
+        $mod->apply($invoice, []);
+        $this->assertNull($invoice->idinmueble180);
+    }
+
+    /**
      * Con varios inmuebles, las facturas sin inmueble se reparten según el porcentaje (el último se queda
      * con el resto del redondeo) y las que lo indican van enteras a su inmueble.
      */
@@ -301,37 +366,6 @@ final class Modelo180Test extends Modelo115TestCase
         $this->assertSame(2, $records[0]['numfacturas']);
         $this->assertFalse($records[0]['reparto']);
         $this->assertSame('9872023VH5797S0001WX', $records[0]['refcatastral']);
-    }
-
-    /**
-     * Selector de inmueble de la cabecera de compras: solo con inmuebles del proveedor, guarda el elegido y
-     * lo quita si es de otro proveedor.
-     */
-    public function testModCabeceraCompras(): void
-    {
-        $mod = new PurchasesHeaderHTMLMod();
-        $invoice = $this->createSupplierInvoice(100.0, 19.0);
-        $this->assertSame('', $mod->renderField($invoice, 'inmueble180'), 'sin inmuebles no hay selector');
-        $this->assertNull($mod->renderField($invoice, 'otro-campo'));
-
-        $property = $this->createProperty($invoice->getSubject(), ['descripcion' => 'Local centro']);
-        $html = $mod->renderField($invoice, 'inmueble180');
-        $this->assertStringContainsString('name="idinmueble180"', $html);
-        $this->assertStringContainsString('value="' . $property->id . '"', $html);
-        $this->assertStringContainsString('Local centro', $html);
-
-        // guarda el inmueble del formulario y no lo toca si el formulario no lo trae
-        $mod->applyBefore($invoice, ['idinmueble180' => (string)$property->id]);
-        $mod->apply($invoice, []);
-        $this->assertSame((int)$property->id, (int)$invoice->idinmueble180);
-        $mod->applyBefore($invoice, []);
-        $this->assertSame((int)$property->id, (int)$invoice->idinmueble180);
-
-        // un inmueble de otro proveedor se quita
-        $other = $this->createProperty($this->createSupplierInvoice(100.0, 19.0)->getSubject());
-        $mod->applyBefore($invoice, ['idinmueble180' => (string)$other->id]);
-        $mod->apply($invoice, []);
-        $this->assertNull($invoice->idinmueble180);
     }
 
     /**

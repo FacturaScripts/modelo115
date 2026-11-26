@@ -28,7 +28,7 @@ use FacturaScripts\Dinamic\Lib\Modelo115;
  *
  * Parámetros comunes: codejercicio, idempresa, anio, periodo (T1-T4, obligatorio) y detalle.
  * Parámetros propios: codretencion (retención por la que filtrar las facturas; vacío = todas) y
- * a_deducir (importe de autoliquidaciones anteriores del mismo periodo, 0 por defecto).
+ * a_deducir (importe de autoliquidaciones anteriores del mismo periodo, positivo o 0; 0 por defecto).
  *
  * No crea, modifica ni borra registros.
  *
@@ -67,7 +67,8 @@ class Modelo115Api
 
         // comprobamos los parámetros propios
         $toDeduct = static::parseFloat($params['a_deducir'] ?? null);
-        if (null === $toDeduct) {
+        if (null === $toDeduct || $toDeduct < 0) {
+            // la casilla 04 es lo ya ingresado en autoliquidaciones anteriores y se resta: no admite negativos
             return static::error(400, 'invalid-parameter', ['parameter' => 'a_deducir']);
         }
 
