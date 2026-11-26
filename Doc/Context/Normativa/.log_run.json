@@ -1,0 +1,91 @@
+{
+ "nuevos": [
+  "actual/normativa/BOE-A-2007-20485_Orden-EHA-3435-2007_dr115.html",
+  "actual/normativa/BOE-A-2018-17997_Orden-HAC-1417-2018.html"
+ ],
+ "modificados": [],
+ "iguales": 18,
+ "errores": [
+  [
+   "https://www.agenciatributaria.es/static_files/AEAT_Desarrolladores/EEDD/Modelo_115/espes115e22v10.docx",
+   "000",
+   "curl: (60) SSL certificate problem: self signed certificate in certificate chain\nMore details here: https://curl.se/docs/sslcerts.html\n\ncurl failed to verify the legitimacy of the server and therefore could not\nestablish a secure connection to it. To learn more about this situation and\nhow to fix it, please visit the web page mentioned above."
+  ],
+  [
+   "https://www.agenciatributaria.es/static_files/AEAT_Desarrolladores/EEDD/Modelo_115/espes115e19v11.docx",
+   "000",
+   "curl: (60) SSL certificate problem: self signed certificate in certificate chain\nMore details here: https://curl.se/docs/sslcerts.html\n\ncurl failed to verify the legitimacy of the server and therefore could not\nestablish a secure connection to it. To learn more about this situation and\nhow to fix it, please visit the web page mentioned above."
+  ],
+  [
+   "https://www.agenciatributaria.es/static_files/AEAT_Desarrolladores/EEDD/Informativas/General/Especificaciones_TGVI_Online.pdf",
+   "000",
+   "curl: (60) SSL certificate problem: self signed certificate in certificate chain\nMore details here: https://curl.se/docs/sslcerts.html\n\ncurl failed to verify the legitimacy of the server and therefore could not\nestablish a secure connection to it. To learn more about this situation and\nhow to fix it, please visit the web page mentioned above."
+  ],
+  [
+   "https://www.agenciatributaria.es/static_files/AEAT_Desarrolladores/EEDD/General/EspecificacionesServiciosDeclaracionesAEAT_ES.pdf",
+   "000",
+   "curl: (60) SSL certificate problem: self signed certificate in certificate chain\nMore details here: https://curl.se/docs/sslcerts.html\n\ncurl failed to verify the legitimacy of the server and therefore could not\nestablish a secure connection to it. To learn more about this situation and\nhow to fix it, please visit the web page mentioned above."
+  ],
+  [
+   "https://www.agenciatributaria.es/static_files/AEAT_Desarrolladores/EEDD/General/consultas.xsd",
+   "000",
+   "curl: (60) SSL certificate problem: self signed certificate in certificate chain\nMore details here: https://curl.se/docs/sslcerts.html\n\ncurl failed to verify the legitimacy of the server and therefore could not\nestablish a secure connection to it. To learn more about this situation and\nhow to fix it, please visit the web page mentioned above."
+  ]
+ ],
+ "paginas_cambiadas": [],
+ "paginas_nuevas": [],
+ "paginas_desaparecidas": [],
+ "enlaces": {
+  "https://sede.agenciatributaria.gob.es/static_files/Sede/Tema/Declaraciones_informativas/2025/NOVEDADES_2025.pdf": "https://sede.agenciatributaria.gob.es/Sede/declaraciones-informativas-otros-impuestos-tasas/campana-declaraciones-informativas-2025/todas-novedades-recordatorios.html",
+  "https://sede.agenciatributaria.gob.es/static_files/Sede/Tema/Declaraciones_informativas/2025/RECORDATORIOS_INF_2025.pdf": "https://sede.agenciatributaria.gob.es/Sede/declaraciones-informativas-otros-impuestos-tasas/campana-declaraciones-informativas-2025/todas-novedades-recordatorios.html"
+ },
+ "actualizada": {
+  "ayuda_consultas-informaticas_presentacion-declar-9060686f.md": "Página actualizada: 19/noviembre/2026",
+  "ayuda_manuales-videos-folletos_manuales-practico-85567b8b.md": "Página actualizada: 26/marzo/2026",
+  "irpf_retenciones-ingresos-cuenta-pagos-fracciona-5547fcfd.md": "Página actualizada: 16/marzo/2026",
+  "irpf_retenciones-ingresos-cuenta-pagos-fracciona-6babdf7f.md": "Página actualizada: 18/marzo/2026",
+  "irpf_retenciones-ingresos-cuenta-pagos-fracciona-ee7891a6.md": "Página actualizada: 16/marzo/2026",
+  "irpf_retenciones-ingresos-cuenta-pagos-fracciona-2cdf2989.md": "Página actualizada: 16/marzo/2026",
+  "ayuda_manuales-videos-folletos_manuales-practico-f9e26854.md": "Página actualizada: 26/marzo/2026",
+  "eu_es_ayuda_manuales-videos-folletos_manuales-pr-16d63cac.md": "Página actualizada: 13/junio/2025",
+  "declaraciones-informativas-otros-impuestos-tasas-f69e1c88.md": "Página actualizada: 27/marzo/2026",
+  "ayuda_consultas-informaticas_declaraciones-infor-e12c9fd6.md": "Página actualizada: 19/noviembre/2026",
+  "ayuda_consultas-informaticas_declaraciones-infor-b9ff7aaa.md": "Página actualizada: 19/noviembre/2026",
+  "ayuda_consultas-informaticas_declaraciones-infor-15c0f081.md": "Página actualizada: 19/noviembre/2026",
+  "ayuda_consultas-informaticas_declaraciones-infor-046a561a.md": "Página actualizada: 14/enero/2026",
+  "irpf_retenciones-ingresos-cuenta-pagos-fracciona-384fed78.md": "Página actualizada: 14/enero/2026",
+  "declaraciones-informativas_campana-declaraciones-4e59cb78.md": "Página actualizada: 13/julio/2026",
+  "procedimientos_GH02.md": "Página actualizada: 03/agosto/2026",
+  "ayuda_disenos-registro_modelos-100-199.md": "Página actualizada: 29/septiembre/2026",
+  "ayuda_consultas-informaticas_declaraciones-infor-7fe5fa13.md": "Página actualizada: 19/noviembre/2026",
+  "ayuda_consultas-informaticas_presentacion-declar-d437dede.md": "Página actualizada: 19/noviembre/2026",
+  "ayuda_consultas-informaticas_presentacion-declar-9a0811fa.md": "Página actualizada: 24/febrero/2026",
+  "ayuda_consultas-informaticas_presentacion-declar-585a06aa.md": "Página actualizada: 19/noviembre/2026",
+  "ayuda_consultas-informaticas_presentacion-declar-76dc3f73.md": "Página actualizada: 19/noviembre/2026",
+  "ayuda_manuales-videos-folletos_manuales-practico-7a870697.md": "Página actualizada: 26/marzo/2026",
+  "irpf_retenciones-ingresos-cuenta-pagos-fracciona-58012366.md": "Página actualizada: 14/enero/2026",
+  "declaraciones-informativas-otros-impuestos-tasas-de9f5a33.md": "Página actualizada: 29/mayo/2026",
+  "declaraciones-informativas-otros-impuestos-tasas-ce885327.md": "Página actualizada: 12/diciembre/2025",
+  "declaraciones-informativas-otros-impuestos-tasas-b044cd83.md": "Página actualizada: 12/diciembre/2025",
+  "declaraciones-informativas-otros-impuestos-tasas-ad8f3158.md": "Página actualizada: 18/diciembre/2025",
+  "declaraciones-informativas-otros-impuestos-tasas-b5abb421.md": "Página actualizada: 22/enero/2026",
+  "declaraciones-informativas-otros-impuestos-tasas-446d655c.md": "Página actualizada: 13/agosto/2026",
+  "declaraciones-informativas-otros-impuestos-tasas-df24c168.md": "Página actualizada: 22/enero/2026",
+  "declaraciones-informativas-otros-impuestos-tasas-e0800807.md": "Página actualizada: 01/diciembre/2025",
+  "declaraciones-informativas-otros-impuestos-tasas-7ed79b2b.md": "Página actualizada: 01/diciembre/2025",
+  "ayuda_manuales-videos-folletos_manuales-practico-73c4aa0e.md": "Página actualizada: 26/marzo/2026",
+  "declaraciones-informativas-otros-impuestos-tasas-d87fcaa1.md": "Página actualizada: 13/agosto/2026",
+  "declaraciones-informativas-otros-impuestos-tasas-7a1cd0fa.md": "Página actualizada: 13/agosto/2026",
+  "declaraciones-informativas-otros-impuestos-tasas-74558664.md": "Página actualizada: 13/agosto/2026",
+  "declaraciones-informativas-otros-impuestos-tasas-03f09c7a.md": "Página actualizada: 13/agosto/2026",
+  "declaraciones-informativas-otros-impuestos-tasas-7c2536d2.md": "Página actualizada: 13/agosto/2026",
+  "declaraciones-informativas-otros-impuestos-tasas-890fdc95.md": "Página actualizada: 13/agosto/2026",
+  "declaraciones-informativas-otros-impuestos-tasas-f68a7bda.md": "Página actualizada: 13/agosto/2026",
+  "todas-gestiones_impuestos-tasas_declaraciones-in-782cbb27.md": "Página actualizada: 08/septiembre/2026",
+  "ayuda_manuales-videos-folletos_manuales-practico-630adeec.md": "Página actualizada: 26/marzo/2026",
+  "ayuda_manuales-videos-folletos_manuales-practico-85d15a6f.md": "Página actualizada: 26/marzo/2026",
+  "ayuda_manuales-videos-folletos_manuales-practico-a70f796e.md": "Página actualizada: 26/marzo/2026",
+  "ayuda_manuales-videos-folletos_manuales-practico-f32601d5.md": "Página actualizada: 26/marzo/2026"
+ },
+ "nombres_largos": []
+}

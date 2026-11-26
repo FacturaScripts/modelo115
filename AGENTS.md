@@ -3,6 +3,10 @@ Plugin **Modelo115** para FacturaScripts: Permite obtener los datos necesarios p
 Antes de tocar nada lee [`Doc/Context/README.md`](Doc/Context/README.md): es el índice del contexto (temas y
 decisiones) y dice qué archivo abrir para cada tema; no hace falta leerlo todo.
 
+Toda decisión sobre el diseño de los ficheros `.115` y 180, claves, plazos o cálculo se contrasta con la documentación
+oficial de [`Doc/Context/Normativa`](Doc/Context/Normativa/CHANGELOG.md). Para actualizarla usa la skill
+`download-modelo115` (en `.agents/skills/`; Claude Code la lee por `.claude/skills`).
+
 ## Documentación
 
 | Ruta | Para quién | Qué guarda |

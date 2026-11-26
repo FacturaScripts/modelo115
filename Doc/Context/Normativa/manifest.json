@@ -1,0 +1,247 @@
+{
+ "https://sede.agenciatributaria.gob.es/static_files/Sede/Disenyo_registro/DR_100_199/archivos/DR115e15v13.xls": {
+  "url": "https://sede.agenciatributaria.gob.es/static_files/Sede/Disenyo_registro/DR_100_199/archivos/DR115e15v13.xls",
+  "ruta": "actual/DR115e15v13.xls",
+  "sha256": "d0b4c2cb344fe2d4b91a082bc85cc7906e383be792134504ddaedd0dc8bb2694",
+  "tamano": 176640,
+  "descargado": "2026-11-26",
+  "comprobado": "2026-11-26",
+  "etag": null,
+  "last_modified": "Tue, 13 Jul 2021 11:37:16 GMT"
+ },
+ "https://sede.agenciatributaria.gob.es/static_files/Sede/Disenyo_registro/DR_100_199/archivos_23/DR_Mod_180_2023.pdf": {
+  "url": "https://sede.agenciatributaria.gob.es/static_files/Sede/Disenyo_registro/DR_100_199/archivos_23/DR_Mod_180_2023.pdf",
+  "ruta": "actual/DR_Mod_180_2023.pdf",
+  "sha256": "f4f4a0e9c8150288489e0a3058bedbd9a3b9f58bdba5e58b1599b7c7f5fc6cda",
+  "tamano": 256994,
+  "descargado": "2026-11-26",
+  "comprobado": "2026-11-26",
+  "etag": null,
+  "last_modified": "Thu, 20 Nov 2025 11:57:50 GMT"
+ },
+ "https://www.boe.es/buscar/act.php?id=BOE-A-2000-21430": {
+  "url": "https://www.boe.es/buscar/act.php?id=BOE-A-2000-21430",
+  "ruta": "actual/normativa/BOE-A-2000-21430_Orden-20-11-2000_mod115-180.html",
+  "sha256": "364fb955c69dff7d7b12b6b63cd8eb4cf6743dbce9e7f0d2ac5d14f39f39e966",
+  "tamano": 220826,
+  "descargado": "2026-11-26",
+  "comprobado": "2026-11-26",
+  "etag": null,
+  "last_modified": null
+ },
+ "https://www.boe.es/buscar/act.php?id=BOE-A-2003-5305": {
+  "url": "https://www.boe.es/buscar/act.php?id=BOE-A-2003-5305",
+  "ruta": "actual/normativa/BOE-A-2003-5305_Orden-HAC-540-2003.html",
+  "sha256": "70b4d2cb0bbf1cd62006bdb17b1af23c327cd5d20856a8b7669cc28594db1c2f",
+  "tamano": 89627,
+  "descargado": "2026-11-26",
+  "comprobado": "2026-11-26",
+  "etag": null,
+  "last_modified": null
+ },
+ "https://www.boe.es/buscar/act.php?id=BOE-A-2010-18368": {
+  "url": "https://www.boe.es/buscar/act.php?id=BOE-A-2010-18368",
+  "ruta": "actual/normativa/BOE-A-2010-18368_Orden-EHA-3062-2010.html",
+  "sha256": "9baeca221bc962e7a453b1866774fbe4bff9152eba3fbc1145838e1d359ec88e",
+  "tamano": 77690,
+  "descargado": "2026-11-26",
+  "comprobado": "2026-11-26",
+  "etag": null,
+  "last_modified": null
+ },
+ "https://www.boe.es/buscar/act.php?id=BOE-A-2012-15380": {
+  "url": "https://www.boe.es/buscar/act.php?id=BOE-A-2012-15380",
+  "ruta": "actual/normativa/BOE-A-2012-15380_Orden-HAP-2725-2012.html",
+  "sha256": "299f0f24660c323c00a2db41c503b438997b8b179d5e928119f0611eb1dd7d4e",
+  "tamano": 56653,
+  "descargado": "2026-11-26",
+  "comprobado": "2026-11-26",
+  "etag": null,
+  "last_modified": null
+ },
+ "https://www.boe.es/buscar/act.php?id=BOE-A-2013-12385": {
+  "url": "https://www.boe.es/buscar/act.php?id=BOE-A-2013-12385",
+  "ruta": "actual/normativa/BOE-A-2013-12385_Orden-HAP-2194-2013.html",
+  "sha256": "152557ff1caca16d0a7c6bacc13edc0e79d4003232219ecc8c1fee1ff3a0c995",
+  "tamano": 639323,
+  "descargado": "2026-11-26",
+  "comprobado": "2026-11-26",
+  "etag": null,
+  "last_modified": null
+ },
+ "https://www.boe.es/buscar/act.php?id=BOE-A-2014-9740": {
+  "url": "https://www.boe.es/buscar/act.php?id=BOE-A-2014-9740",
+  "ruta": "actual/normativa/BOE-A-2014-9740_Orden-HAP-1732-2014.html",
+  "sha256": "26ae327969a89f922b01d18724bfd4aa36fae3d6123d06ec79898da58f663155",
+  "tamano": 200761,
+  "descargado": "2026-11-26",
+  "comprobado": "2026-11-26",
+  "etag": null,
+  "last_modified": null
+ },
+ "https://www.boe.es/buscar/act.php?id=BOE-A-2020-17271": {
+  "url": "https://www.boe.es/buscar/act.php?id=BOE-A-2020-17271",
+  "ruta": "actual/normativa/BOE-A-2020-17271_Orden-HAC-1276-2020.html",
+  "sha256": "873a43b0e0b94a94a2c2293a934e8fdaa38f87b9a0bfc99256d5480b008ea8d5",
+  "tamano": 94755,
+  "descargado": "2026-11-26",
+  "comprobado": "2026-11-26",
+  "etag": null,
+  "last_modified": null
+ },
+ "https://www.boe.es/buscar/act.php?id=BOE-A-2021-20004": {
+  "url": "https://www.boe.es/buscar/act.php?id=BOE-A-2021-20004",
+  "ruta": "actual/normativa/BOE-A-2021-20004_Orden-HFP-1351-2021.html",
+  "sha256": "5384af208fc37db3fc822fb7a34b6ab39f3065e7c0aa7f5454c2697c1055ae6a",
+  "tamano": 152741,
+  "descargado": "2026-11-26",
+  "comprobado": "2026-11-26",
+  "etag": null,
+  "last_modified": null
+ },
+ "https://www.boe.es/buscar/act.php?id=BOE-A-2023-24412": {
+  "url": "https://www.boe.es/buscar/act.php?id=BOE-A-2023-24412",
+  "ruta": "actual/normativa/BOE-A-2023-24412_Orden-HFP-1284-2023.html",
+  "sha256": "df7e3184d6c675e737fae3034548726dcbf3322b6b193a672a29eff1289f590f",
+  "tamano": 308486,
+  "descargado": "2026-11-26",
+  "comprobado": "2026-11-26",
+  "etag": null,
+  "last_modified": null
+ },
+ "https://www.boe.es/buscar/act.php?id=BOE-A-2006-20764": {
+  "url": "https://www.boe.es/buscar/act.php?id=BOE-A-2006-20764",
+  "ruta": "actual/normativa/BOE-A-2006-20764_Ley-35-2006-IRPF.html",
+  "sha256": "2bb2773886678e723fd68aaba87d64e46cf42e2584dae75e74ed611e0aef5864",
+  "tamano": 2053007,
+  "descargado": "2026-11-26",
+  "comprobado": "2026-11-26",
+  "etag": null,
+  "last_modified": null
+ },
+ "https://www.boe.es/buscar/act.php?id=BOE-A-2007-6820": {
+  "url": "https://www.boe.es/buscar/act.php?id=BOE-A-2007-6820",
+  "ruta": "actual/normativa/BOE-A-2007-6820_RD-439-2007-Reglamento-IRPF.html",
+  "sha256": "7c5ee82d94fd8b23c33bed82e77979a48e786b03ee3e467a671667a5e52c7326",
+  "tamano": 1022055,
+  "descargado": "2026-11-26",
+  "comprobado": "2026-11-26",
+  "etag": null,
+  "last_modified": null
+ },
+ "https://www.boe.es/buscar/act.php?id=BOE-A-2014-12328": {
+  "url": "https://www.boe.es/buscar/act.php?id=BOE-A-2014-12328",
+  "ruta": "actual/normativa/BOE-A-2014-12328_Ley-27-2014-IS.html",
+  "sha256": "67f3f41ab75b2e5a429a4dc2d47af418b2a5a9cf384b5524174a519e25d91d6f",
+  "tamano": 1488355,
+  "descargado": "2026-11-26",
+  "comprobado": "2026-11-26",
+  "etag": null,
+  "last_modified": null
+ },
+ "https://www.boe.es/buscar/act.php?id=BOE-A-2015-7771": {
+  "url": "https://www.boe.es/buscar/act.php?id=BOE-A-2015-7771",
+  "ruta": "actual/normativa/BOE-A-2015-7771_RD-634-2015-Reglamento-IS.html",
+  "sha256": "5ec82bce37f13bfce86135d9edf4b7307de901ea06da7590a7615fda68564cb5",
+  "tamano": 387837,
+  "descargado": "2026-11-26",
+  "comprobado": "2026-11-26",
+  "etag": null,
+  "last_modified": null
+ },
+ "https://www.boe.es/buscar/act.php?id=BOE-A-2004-4527": {
+  "url": "https://www.boe.es/buscar/act.php?id=BOE-A-2004-4527",
+  "ruta": "actual/normativa/BOE-A-2004-4527_RDLeg-5-2004-TRLIRNR.html",
+  "sha256": "812bc349546f66145d3cf69652d1c98e29d04fbe8211f6f26bf010374f1ecfd4",
+  "tamano": 534897,
+  "descargado": "2026-11-26",
+  "comprobado": "2026-11-26",
+  "etag": null,
+  "last_modified": null
+ },
+ "https://sede.agenciatributaria.gob.es/static_files/Sede/Tema/Declaraciones_informativas/2025/NOVEDADES_2025.pdf": {
+  "url": "https://sede.agenciatributaria.gob.es/static_files/Sede/Tema/Declaraciones_informativas/2025/NOVEDADES_2025.pdf",
+  "ruta": "actual/NOVEDADES_2025.pdf",
+  "sha256": "73b784101274c6d8db3a665fc6212b25d12a9bcac646e22bd50e87991b2541ed",
+  "tamano": 1836374,
+  "descargado": "2026-11-26",
+  "comprobado": "2026-11-26",
+  "etag": null,
+  "last_modified": "Fri, 12 Dec 2025 14:03:23 GMT"
+ },
+ "https://sede.agenciatributaria.gob.es/static_files/Sede/Tema/Declaraciones_informativas/2025/RECORDATORIOS_INF_2025.pdf": {
+  "url": "https://sede.agenciatributaria.gob.es/static_files/Sede/Tema/Declaraciones_informativas/2025/RECORDATORIOS_INF_2025.pdf",
+  "ruta": "actual/RECORDATORIOS_INF_2025.pdf",
+  "sha256": "6bb0a510fce92c3e7be2f50b2587d6a034a1a5e9018be1c3b4bf5da7d2185e56",
+  "tamano": 1179829,
+  "descargado": "2026-11-26",
+  "comprobado": "2026-11-26",
+  "etag": null,
+  "last_modified": "Thu, 18 Dec 2025 08:27:31 GMT"
+ },
+ "https://www.boe.es/buscar/act.php?id=BOE-A-2007-20485": {
+  "url": "https://www.boe.es/buscar/act.php?id=BOE-A-2007-20485",
+  "ruta": "actual/normativa/BOE-A-2007-20485_Orden-EHA-3435-2007_dr115.html",
+  "sha256": "c8f1a3cecc22d5f8c227edc875bdda4b3558c66eeab05fb01bc6d74348b3772e",
+  "tamano": 149995,
+  "descargado": "2026-11-26",
+  "comprobado": "2026-11-26",
+  "etag": null,
+  "last_modified": null
+ },
+ "https://www.boe.es/buscar/act.php?id=BOE-A-2018-17997": {
+  "url": "https://www.boe.es/buscar/act.php?id=BOE-A-2018-17997",
+  "ruta": "actual/normativa/BOE-A-2018-17997_Orden-HAC-1417-2018.html",
+  "sha256": "a382f807cf20cdc3edd0306386d8cf3ddfc0d7464114821a6866e66fcb7f2b61",
+  "tamano": 121508,
+  "descargado": "2026-11-26",
+  "comprobado": "2026-11-26",
+  "etag": null,
+  "last_modified": null
+ },
+ "https://www.agenciatributaria.es/static_files/AEAT_Desarrolladores/EEDD/Informativas/General/Especificaciones_TGVI_Online.pdf": {
+  "url": "https://www.agenciatributaria.es/static_files/AEAT_Desarrolladores/EEDD/Informativas/General/Especificaciones_TGVI_Online.pdf",
+  "ruta": "actual/Especificaciones_TGVI_Online.pdf",
+  "sha256": "bc64dc52f898835c3ad9914c0b62070c9898a2304ddfe14d6c2585e4c7ebdb57",
+  "tamano": 1259756,
+  "descargado": "2026-11-26",
+  "comprobado": "2026-11-26",
+  "origen_descarga": "manual"
+ },
+ "https://www.agenciatributaria.es/static_files/AEAT_Desarrolladores/EEDD/General/EspecificacionesServiciosDeclaracionesAEAT_ES.pdf": {
+  "url": "https://www.agenciatributaria.es/static_files/AEAT_Desarrolladores/EEDD/General/EspecificacionesServiciosDeclaracionesAEAT_ES.pdf",
+  "ruta": "actual/EspecificacionesServiciosDeclaracionesAEAT_ES.pdf",
+  "sha256": "cdbd1cad6d6db079d264490d5a0d6484818225db95a1d3ba563b253affce605e",
+  "tamano": 1093136,
+  "descargado": "2026-11-26",
+  "comprobado": "2026-11-26",
+  "origen_descarga": "manual"
+ },
+ "https://www.agenciatributaria.es/static_files/AEAT_Desarrolladores/EEDD/General/consultas.xsd": {
+  "url": "https://www.agenciatributaria.es/static_files/AEAT_Desarrolladores/EEDD/General/consultas.xsd",
+  "ruta": "actual/consultas.xsd",
+  "sha256": "54220f18daa13363cb98558d15441ae6752c6eb60799e812893a482a433f41d2",
+  "tamano": 2342,
+  "descargado": "2026-11-26",
+  "comprobado": "2026-11-26",
+  "origen_descarga": "manual"
+ },
+ "https://www.agenciatributaria.es/static_files/AEAT_Desarrolladores/EEDD/Modelo_115/espes115e22v10.docx": {
+  "url": "https://www.agenciatributaria.es/static_files/AEAT_Desarrolladores/EEDD/Modelo_115/espes115e22v10.docx",
+  "ruta": "actual/espes115e22v10.docx",
+  "sha256": "ada94c11f54a54241a2ca5ba206108fd8cb539b8361f11c68b5d8ebee0078dad",
+  "tamano": 34366,
+  "descargado": "2026-11-26",
+  "comprobado": "2026-11-26",
+  "origen_descarga": "manual"
+ },
+ "https://www.agenciatributaria.es/static_files/AEAT_Desarrolladores/EEDD/Modelo_115/espes115e19v11.docx": {
+  "url": "https://www.agenciatributaria.es/static_files/AEAT_Desarrolladores/EEDD/Modelo_115/espes115e19v11.docx",
+  "ruta": "actual/espes115e19v11.docx",
+  "sha256": "54cc2650fa02522951ddcd3a6c0b1493c1268ecd2bc1fb7621190c049db14c99",
+  "tamano": 98589,
+  "descargado": "2026-11-26",
+  "comprobado": "2026-11-26",
+  "origen_descarga": "manual"
+ }
+}

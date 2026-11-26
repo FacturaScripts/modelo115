@@ -16,6 +16,15 @@ en el mismo trabajo que cambia el código.
 - [`05-api.md`](05-api.md): endpoints de solo lectura, errores y permisos.
 - [`06-evolucion.md`](06-evolucion.md): etapas del código según el historial.
 
+## Normativa
+
+- [`Normativa/`](Normativa/): documentación **oficial** de los modelos 115 y 180 (AEAT y BOE), descargada con la skill
+  `download-modelo115` (`.agents/skills/`). Contiene `actual/` (diseños de registro, especificaciones y normativa del
+  BOE en `actual/normativa/`), `paginas/` (texto de la ayuda técnica, gestiones y normativa de la Sede),
+  `historico/` (versiones sustituidas), `manifest.json` y [`CHANGELOG.md`](Normativa/CHANGELOG.md) (qué se bajó, versiones
+  vigentes, alertas y lo que queda por descargar a mano). Contrasta con ella cualquier decisión sobre claves, campos o
+  plazos; para refrescarla, ejecuta la skill.
+
 ## Decisiones
 
 - [`0001-irpfa-separa-115-de-111.md`](Decisiones/0001-irpfa-separa-115-de-111.md): solo las retenciones IRPFA van al 115.
