@@ -12,7 +12,7 @@ Tienes que presentarlo una vez al año si has pagado alquileres de inmuebles urb
 
 ## 📋 Cómo se rellena
 
-Entra en **menú Informes** → **Modelos fiscales** → **Modelo 115 y 180** y:
+Entra en **menú Informes** → **Fiscalidad España** → **Modelo 115 y 180** y:
 
 1. Elige el **Ejercicio**.
 2. Elige el **Periodo** **Anual (Modelo 180)**.

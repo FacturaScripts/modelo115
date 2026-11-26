@@ -2,7 +2,7 @@
 Plugin para FacturaScripts con los modelos 115 y 180 para la hacienda española.
 - https://facturascripts.com/plugins/modelo115
 
-Muestra los datos de ambos modelos desde el menú **Informes → Modelos fiscales → Modelo 115 y 180**, con el detalle de las facturas del periodo, totales, impresión en PDF y descarga del fichero de presentación de la AEAT (.115 en los trimestres y del 180 en el anual).
+Muestra los datos de ambos modelos desde el menú **Informes → Fiscalidad España → Modelo 115 y 180**, con el detalle de las facturas del periodo, totales, impresión en PDF y descarga del fichero de presentación de la AEAT (.115 en los trimestres y del 180 en el anual).
 
 Solo se incluyen en el cálculo las facturas cuya retención se contabiliza en una subcuenta con la cuenta especial **IRPFA** (IRPF para alquileres); las retenciones de profesionales y trabajadores corresponden al modelo 111 y quedan fuera. Si el ejercicio no tiene ninguna subcuenta IRPFA, se incluyen todas las facturas con retención.
 

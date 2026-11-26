@@ -1,4 +1,4 @@
-El plugin Modelo115 expone los datos de los modelos 115 (retenciones trimestrales de alquileres) y 180 (resumen anual) en dos endpoints de solo lectura de la API REST. Calculan con las mismas clases que la pantalla del plugin, así que las cifras coinciden con las que se ven en **menú Informes** → **Modelos fiscales** → **Modelo 115 y 180**. No crean asientos, no guardan datos y no generan los ficheros de la AEAT.
+El plugin Modelo115 expone los datos de los modelos 115 (retenciones trimestrales de alquileres) y 180 (resumen anual) en dos endpoints de solo lectura de la API REST. Calculan con las mismas clases que la pantalla del plugin, así que las cifras coinciden con las que se ven en **menú Informes** → **Fiscalidad España** → **Modelo 115 y 180**. No crean asientos, no guardan datos y no generan los ficheros de la AEAT.
 
 - `GET /api/3/modelo115`: un trimestre. Devuelve el resumen, las casillas y el resultado a ingresar.
 - `GET /api/3/modelo180`: el año completo. Devuelve el resumen, tres casillas y el detalle por arrendador e inmueble. Es una declaración informativa y su `resultado` es `null`.

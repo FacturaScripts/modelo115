@@ -15,10 +15,10 @@ Si no ves el menú del paso 3 de la sección siguiente, activa el plugin Modelo1
 ## 📋 Cómo se rellena
 
 1. Pulsa el menú **Informes**.
-2. Pasa el ratón por **Modelos fiscales**.
+2. Pasa el ratón por **Fiscalidad España**.
 3. Elige **Modelo 115 y 180**.
 
-![Menú Informes con el submenú Modelos fiscales y la opción Modelo 115 y 180 marcada](../Assets/como-hacer-el-modelo-115/01-menu-modelo-115-y-180.png)
+![Menú Informes con el submenú Fiscalidad España y la opción Modelo 115 y 180 marcada](../Assets/como-hacer-el-modelo-115/01-menu-modelo-115-y-180.png)
 
 Ahora elige qué declaración quieres ver. Al abrir la pantalla aparecen el ejercicio del año en curso y el trimestre en curso.
 

@@ -21,7 +21,7 @@ Piezas:
   avisos (claves de traducción con parámetros).
 - `Lib/Modelo115ApiTrait` y `Lib/Modelo115FileTrait`: código común de las dos APIs (empresa, ejercicio, retención,
   facturas, avisos, formato de fechas e importes) y de los dos ficheros (formato de campos de la AEAT).
-- `Controller/Modelo115`: pantalla en Informes > Modelos fiscales. Acciones `print` (PDF), `download` (.115) y
+- `Controller/Modelo115`: pantalla en Informes > Fiscalidad España. Acciones `print` (PDF), `download` (.115) y
   `download-180`.
 - `Controller/ApiModelo115` y `Controller/ApiModelo180`: endpoints de solo lectura (ver
   [`05-api.md`](05-api.md)).
